@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#071426">
+<title>Vademécum Cardio · Sistema cardiovascular (Perú)</title>
+<style>
+:root{
+  --navy:#071426; --navy2:#0d2038; --panel:#102943; --ink:#effaff; --muted:#a9c1d2;
+  --cyan:#35e0e7; --lime:#a8f05d; --yellow:#ffd166; --coral:#ff6f61; --violet:#a98cff;
+  --danger:#ff5370; --shadow:0 22px 70px rgba(0,0,0,.42); --radius:24px; --font-scale:1;
+}
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--navy);scroll-behavior:smooth}
+body{min-height:100vh;margin:0;color:var(--ink);font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:calc(16px * var(--font-scale));background:radial-gradient(circle at 10% 10%,rgba(53,224,231,.17),transparent 28rem),radial-gradient(circle at 90% 86%,rgba(169,140,255,.15),transparent 31rem),linear-gradient(155deg,#071426,#0a1c31 48%,#071426);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.15;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(#000,transparent 84%)}
+button,select,input{font:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:4px solid rgba(255,209,102,.92);outline-offset:3px}
+.hidden{display:none!important}
+.app{min-height:100vh;position:relative}
+.ambient{position:fixed;width:19rem;aspect-ratio:1;border:1px solid rgba(53,224,231,.16);border-radius:50%;pointer-events:none;animation:drift 14s ease-in-out infinite}
+.ambient.a{left:-10rem;top:15%}.ambient.b{right:-10rem;bottom:3%;border-color:rgba(169,140,255,.18);animation-delay:-6s}
+@keyframes drift{50%{transform:translateY(-28px) scale(1.08)}}
+@keyframes pop{from{transform:translateY(12px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+@keyframes pulse{50%{transform:scale(1.07);filter:drop-shadow(0 0 24px rgba(53,224,231,.78))}}
+
+/* ---------- PORTADA ---------- */
+.start{min-height:100vh;display:grid;place-items:center;padding:max(28px,env(safe-area-inset-top)) 20px max(28px,env(safe-area-inset-bottom))}
+.start-card{width:min(1080px,100%);min-height:625px;display:grid;grid-template-columns:.9fr 1.1fr;border:1px solid rgba(255,255,255,.12);border-radius:34px;background:linear-gradient(145deg,rgba(14,40,67,.96),rgba(7,20,38,.96));box-shadow:var(--shadow);overflow:hidden}
+.hero-art{display:grid;place-items:center;padding:36px;border-right:1px solid rgba(255,255,255,.08);background:radial-gradient(circle at 50% 38%,rgba(53,224,231,.19),transparent 14rem),linear-gradient(160deg,rgba(53,224,231,.08),transparent 55%)}
+.hero-console{text-align:center;width:min(390px,100%)}
+.pulse-core{width:220px;height:220px;margin:0 auto 22px;display:grid;place-items:center;border:2px solid rgba(53,224,231,.46);border-radius:50%;position:relative;animation:pulse 2.2s ease-in-out infinite}
+.pulse-core:before,.pulse-core:after{content:"";position:absolute;inset:16px;border:1px dashed rgba(53,224,231,.48);border-radius:50%}
+.pulse-core:after{inset:-19px;border-style:solid;border-color:rgba(53,224,231,.12)}
+.pulse-heart{font-size:76px}
+.ecg{height:42px;background:var(--cyan);clip-path:polygon(0 48%,22% 48%,28% 46%,31% 70%,35% 4%,40% 92%,44% 48%,100% 48%,100% 56%,44% 56%,40% 100%,35% 14%,31% 80%,28% 56%,0 56%);opacity:.82}
+.console-label{margin-top:10px;color:var(--cyan);text-transform:uppercase;letter-spacing:.2em;font-size:.76rem;font-weight:900}
+.start-copy{padding:clamp(34px,6vw,72px);display:flex;flex-direction:column;justify-content:center}
+.eyebrow{margin:0 0 10px;color:var(--cyan);font-size:.78rem;font-weight:950;letter-spacing:.16em;text-transform:uppercase}
+h1{margin:0;font-size:clamp(2.5rem,5.4vw,5.2rem);line-height:.9;letter-spacing:-.06em}
+h1 span{display:block;margin-top:14px;color:var(--yellow);font-size:.4em;letter-spacing:.01em}
+.lede{color:var(--muted);font-size:1.03rem;line-height:1.6;margin:25px 0 20px}
+.feature-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
+.pill{padding:9px 13px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(255,255,255,.05);font-size:.84rem;font-weight:800}
+.start-actions{display:grid;grid-template-columns:1fr auto;gap:12px}
+.tiny-note{margin:17px 0 0;color:#7893a8;font-size:.72rem;line-height:1.45}
+
+/* ---------- BOTONES ---------- */
+.primary,.secondary,.ghost,.icon-button,.med-button,.chip,.fieldnav{border:0;transition:transform .15s ease,background .2s ease,border-color .2s ease,opacity .2s ease}
+.primary:hover,.secondary:hover,.med-button:hover,.chip:hover{transform:translateY(-2px)}
+.primary:active,.secondary:active{transform:translateY(1px) scale(.99)}
+.primary{min-height:52px;padding:12px 20px;border-radius:15px;color:#06202b;background:linear-gradient(135deg,var(--cyan),#7df4cf);font-weight:950;box-shadow:0 10px 24px rgba(53,224,231,.17)}
+.secondary{min-height:48px;padding:11px 17px;border-radius:14px;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-weight:850}
+.ghost{min-height:44px;padding:9px 12px;border-radius:12px;color:var(--muted);background:transparent;border:1px solid rgba(255,255,255,.11);font-weight:800}
+
+/* ---------- HUD ---------- */
+.hud{position:sticky;top:0;z-index:30;padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 10px max(14px,env(safe-area-inset-left));background:rgba(5,15,29,.9);border-bottom:1px solid rgba(255,255,255,.09);backdrop-filter:blur(18px)}
+.hud-inner{width:min(1240px,100%);margin:auto;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.brand{display:flex;gap:10px;align-items:center;padding:4px;color:var(--ink);background:transparent;border:0}
+.brand-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(53,224,231,.14);border:1px solid rgba(53,224,231,.32);font-size:1.2rem}
+.brand-text{text-align:left;font-weight:950;line-height:1}
+.brand-text small{display:block;margin-top:5px;color:var(--cyan);letter-spacing:.11em;text-transform:uppercase;font-size:.54rem}
+.progress-top{display:flex;justify-content:space-between;margin-bottom:6px;color:var(--muted);font-size:.72rem;font-weight:850}
+.progress-track{height:8px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden}
+.progress-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--lime));transition:width .45s ease}
+.hud-stats{display:flex;align-items:center;gap:8px}
+.stat{min-height:39px;display:flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(255,255,255,.055);font-weight:900;white-space:nowrap}
+.stat span{color:var(--yellow)}
+.icon-button{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
+.icon-button[aria-pressed="false"]{opacity:.45}
+
+/* ---------- LAYOUT ---------- */
+.game{width:min(1240px,100%);margin:auto;padding:28px 18px max(56px,env(safe-area-inset-bottom))}
+.screen{animation:pop .34s ease both}
+.map-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin:12px 0 22px}
+.map-head h2{margin:0;font-size:clamp(1.95rem,4.6vw,3.9rem);line-height:.96;letter-spacing:-.045em}
+.map-head p{max-width:720px;margin:9px 0 0;color:var(--muted);line-height:1.55}
+.access-chip{padding:9px 14px;border-radius:999px;border:1px solid rgba(168,240,93,.26);background:rgba(168,240,93,.08);color:var(--lime);font-weight:950;white-space:nowrap}
+
+/* ---------- FILTROS ---------- */
+.toolbar{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:16px}
+.search-wrap{position:relative}
+.search{width:100%;padding:14px 16px 14px 44px;color:var(--ink);background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.16);border-radius:14px;font-weight:700}
+.search::placeholder{color:#7893a8}
+.search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.7}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--ink);font-size:.82rem;font-weight:850}
+.chip[aria-pressed="true"]{border-color:var(--cyan);background:rgba(53,224,231,.14);color:var(--cyan)}
+
+/* ---------- MAPA DE MEDICAMENTOS ---------- */
+.med-map{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.med-card{min-height:212px;padding:22px;display:flex;flex-direction:column;position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(255,255,255,.1);background:linear-gradient(145deg,rgba(16,41,67,.94),rgba(8,24,43,.96));box-shadow:0 12px 36px rgba(0,0,0,.2);text-align:left;color:var(--ink);transition:transform .15s ease,border-color .2s ease}
+.med-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.med-card:before{content:"";position:absolute;width:200px;height:200px;right:-78px;top:-86px;border-radius:50%;background:var(--accent);opacity:.12}
+.med-top{display:flex;justify-content:space-between;gap:14px;align-items:start}
+.med-icon{font-size:2.3rem}
+.med-code{color:var(--accent);font-size:.72rem;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+.med-card h3{margin:12px 0 6px;font-size:1.22rem;line-height:1.18;position:relative}
+.med-card p{margin:0;color:var(--muted);line-height:1.45;font-size:.86rem;position:relative}
+.med-status{margin-top:auto;padding-top:16px;display:flex;justify-content:space-between;gap:10px;align-items:center;position:relative}
+.med-tag{display:inline-flex;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#d9eff9;font-size:.68rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.med-check{color:var(--lime);font-size:.76rem;font-weight:900}
+.med-card.done{border-color:rgba(168,240,93,.4)}
+.empty{padding:40px;text-align:center;color:var(--muted);border:1px dashed rgba(255,255,255,.14);border-radius:var(--radius)}
+
+/* ---------- DETALLE ---------- */
+.detail-head{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start;margin:6px 0 16px}
+.kicker{margin-bottom:8px;color:var(--accent,var(--cyan));font-size:.75rem;font-weight:950;letter-spacing:.13em;text-transform:uppercase}
+.detail-head h2{margin:0;font-size:clamp(1.8rem,4.4vw,3.5rem);line-height:1;letter-spacing:-.04em}
+.detail-sub{margin:10px 0 0;color:var(--muted);line-height:1.5}
+.detail-tools{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:9px}
+.mode-switch{display:inline-flex;padding:4px;gap:4px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:rgba(0,0,0,.2)}
+.mode-switch button{min-height:38px;padding:8px 15px;border-radius:10px;color:var(--muted);background:transparent;border:0;font-weight:900;font-size:.83rem}
+.mode-switch button[aria-pressed="true"]{color:#06202b;background:linear-gradient(135deg,var(--cyan),#7df4cf)}
+.field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.field{padding:20px;border:1px solid rgba(255,255,255,.11);border-radius:19px;background:linear-gradient(145deg,rgba(16,41,67,.95),rgba(9,25,44,.97));box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.field.wide{grid-column:1/-1}
+.field-title{display:flex;align-items:center;gap:9px;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(53,224,231,.2);color:var(--cyan);font-size:.78rem;font-weight:950;letter-spacing:.11em;text-transform:uppercase}
+.field-title b{font-size:1.05rem}
+.field ul{margin:0;padding-left:18px;display:grid;gap:8px}
+.field li{color:#dcecf5;line-height:1.5;font-size:.92rem}
+.field li::marker{color:var(--cyan)}
+.field.alert .field-title{color:var(--danger);border-bottom-color:rgba(255,83,112,.25)}
+.field.alert li::marker{color:var(--danger)}
+.field.care .field-title{color:var(--lime);border-bottom-color:rgba(168,240,93,.25)}
+.field.care li::marker{color:var(--lime)}
+.field.care{border-color:rgba(168,240,93,.22);background:linear-gradient(145deg,rgba(21,48,57,.95),rgba(9,27,40,.97))}
+.detail-nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap}
+mark{background:rgba(255,209,102,.3);color:var(--yellow);border-radius:4px;padding:0 2px}
+
+/* ---------- REPASO ---------- */
+.flash-wrap{display:grid;place-items:center;padding:10px 0}
+.flash{width:min(760px,100%);min-height:330px;padding:clamp(22px,4vw,40px);display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12);border-radius:26px;background:linear-gradient(145deg,rgba(16,41,67,.96),rgba(9,25,44,.97));box-shadow:var(--shadow)}
+.flash-kicker{color:var(--yellow);font-size:.74rem;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+.flash h3{margin:10px 0 6px;font-size:clamp(1.4rem,3.2vw,2.2rem);line-height:1.15}
+.flash-q{margin:0 0 16px;color:var(--cyan);font-weight:900;letter-spacing:.05em;text-transform:uppercase;font-size:.8rem}
+.flash-body{flex:1}
+.flash-body ul{margin:0;padding-left:18px;display:grid;gap:9px}
+.flash-body li{color:#dcecf5;line-height:1.5}
+.flash-hidden{display:grid;place-items:center;height:100%;min-height:130px;color:#7893a8;text-align:center;line-height:1.6}
+.flash-actions{display:flex;justify-content:space-between;gap:11px;margin-top:18px;flex-wrap:wrap}
+
+/* ---------- MODAL / TOAST ---------- */
+.modal-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(12px)}
+.modal{width:min(880px,100%);max-height:92vh;overflow:auto;padding:22px;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:#0d2038;box-shadow:var(--shadow)}
+.modal-top{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:14px}
+.modal h3{margin:0;font-size:1.35rem}
+.modal-close{width:42px;height:42px;border:1px solid rgba(255,255,255,.12);border-radius:12px;color:var(--ink);background:rgba(255,255,255,.06);font-size:1.15rem}
+.modal p,.modal li{color:#d5e7f0;line-height:1.6}
+.log-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.log-stat{padding:14px;border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09)}
+.log-stat strong{display:block;color:var(--yellow);font-size:1.45rem}
+.log-list{display:grid;gap:9px;max-height:40vh;overflow:auto}
+.log-row{display:flex;justify-content:space-between;gap:15px;padding:11px;border-radius:12px;background:rgba(255,255,255,.045);font-size:.88rem}
+.toast{position:fixed;right:18px;bottom:18px;z-index:120;max-width:min(390px,calc(100vw - 36px));padding:12px 15px;border:1px solid rgba(255,255,255,.13);border-radius:13px;background:#102943;box-shadow:var(--shadow);animation:pop .25s ease both;font-weight:800}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:980px){.med-map{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){
+  .start-card{grid-template-columns:1fr}
+  .hero-art{min-height:300px;border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .pulse-core{width:165px;height:165px}.pulse-heart{font-size:58px}
+  .field-grid{grid-template-columns:1fr}
+  .detail-head{grid-template-columns:1fr}.detail-tools{justify-content:flex-start}
+}
+@media(max-width:680px){
+  .hud-inner{grid-template-columns:auto 1fr}
+  .hud-stats{grid-column:1/-1;justify-content:flex-end;flex-wrap:wrap}
+  .hide-small{display:none}
+  .map-head{align-items:start;flex-direction:column}
+  .start-copy{padding:32px 22px}.start-actions{grid-template-columns:1fr}
+  .med-map{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr}
+  .log-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* ---------- IMPRESIÓN ---------- */
+@media print{
+  @page{size:A4;margin:14mm}
+  html,body{background:#fff!important;color:#111!important;font-size:10.5pt}
+  body:before,.ambient,.hud,.start,.detail-tools,.detail-nav,.toolbar,.chips,.toast,.modal-backdrop,.no-print{display:none!important}
+  .game{width:100%;padding:0}
+  .print-only{display:block!important}
+  .print-med{break-after:page;page-break-after:always;padding-top:4mm}
+  .print-med:last-child{break-after:auto;page-break-after:auto}
+  .print-med h2{font-size:17pt;color:#0e6b7b!important;margin:0 0 2mm;letter-spacing:-.02em}
+  .print-med .psub{color:#13a5bc!important;font-size:9.5pt;font-style:italic;margin:0 0 4mm;border-bottom:1.4pt solid #13a5bc;padding-bottom:2mm}
+  .print-field{break-inside:avoid;page-break-inside:avoid;margin-bottom:3.4mm}
+  .print-field h4{margin:0 0 1.4mm;font-size:9.5pt;color:#0e6b7b!important;text-transform:uppercase;letter-spacing:.06em;background:#d9f2f6;padding:1.2mm 2mm;border-radius:2pt}
+  .print-field ul{margin:0;padding-left:5mm}
+  .print-field li{color:#1f2933!important;line-height:1.4;margin-bottom:.8mm;font-size:9.5pt}
+  .print-cover{text-align:center;break-after:page;page-break-after:always;padding-top:45mm}
+  .print-cover h1{font-size:30pt;color:#0e6b7b!important;letter-spacing:-.03em}
+  .print-cover p{color:#1f2933!important;font-size:11pt}
+}
+.print-only{display:none}
+
+/* ---------- FUENTES ---------- */
+.field.source{background:linear-gradient(145deg,rgba(169,140,255,.12),rgba(255,255,255,.03));border-color:rgba(169,140,255,.35)}
+.field.source li{font-size:.9em;color:var(--muted)}
+.sources-box{margin:26px 0 8px;padding:16px 18px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.04)}
+.sources-box summary{cursor:pointer;font-weight:900;color:var(--cyan)}
+.sources-box ol{margin:12px 0 6px;padding-left:22px;line-height:1.6}
+.sources-box a{color:var(--ink)}
+.sources-note{color:var(--muted);font-size:.8rem;margin:6px 0 0}
+
+/* ---------- PATOLOGÍAS Y MATRIZ ---------- */
+.cat-tags{display:flex;flex-wrap:wrap;gap:5px;flex:1}
+.med-check{white-space:nowrap}
+.med-status{align-items:flex-end}
+.matrix-box{margin:0 0 20px}
+.matrix-wrap{overflow-x:auto;margin-top:12px}
+.matrix{width:100%;min-width:560px;border-collapse:collapse;font-size:.84rem}
+.matrix th,.matrix td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.08);text-align:center}
+.matrix th{color:var(--cyan);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.matrix th:first-child,.matrix td:first-child{text-align:left}
+.matrix td.on{color:var(--lime);font-size:1.05rem}
+.matrix td.off{color:#4d6478}
+.matrix tbody tr:hover{background:rgba(255,255,255,.04)}
+.mx-open{padding:0;border:0;background:none;color:var(--ink);font-weight:850;text-align:left;cursor:pointer}
+.mx-open:hover{color:var(--cyan)}
+@media print{
+  #shell{display:none!important}
+  .print-only .matrix{min-width:0;font-size:9pt;margin-top:3mm}
+  .print-only .matrix th,.print-only .matrix td{border:.6pt solid #9fb8c0;padding:1.6mm;color:#1f2933!important;background:#fff}
+  .print-only .matrix th{background:#d9f2f6!important;color:#0e6b7b!important}
+  .print-only .matrix td.on{color:#0e6b7b!important;font-weight:700}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="ambient a"></div><div class="ambient b"></div>
+
+  <section class="start" id="startScreen">
+    <div class="start-card">
+      <div class="hero-art">
+        <div class="hero-console">
+          <div class="pulse-core"><div class="pulse-heart">🫀</div></div>
+          <div class="ecg"></div>
+          <div class="console-label">Sistema cardiovascular • lista</div>
+        </div>
+      </div>
+      <div class="start-copy">
+        <p class="eyebrow">Fichas farmacológicas de enfermería · Perú</p>
+        <h1>Vademécum Cardio <span>15 fármacos esenciales · sistema cardiovascular</span></h1>
+        <p class="lede">Los quince fármacos de mayor uso en cardiopatía isquémica, infarto de miocardio, insuficiencia cardiaca congestiva, miocardiopatías, arritmias y valvulopatías. Cada ficha reúne nombre comercial, presentación, clase terapéutica, dosis, mecanismo de acción, indicaciones, vías de administración, efectos adversos, contraindicaciones y cuidados de enfermería, con la norma peruana que la respalda.</p>
+        <div class="feature-row">
+          <span class="pill">🇵🇪 DIGEMID · MINSA · EsSalud</span>
+          <span class="pill">🔍 Buscador</span>
+          <span class="pill">🗂️ 6 patologías</span>
+          <span class="pill">🧭 Matriz fármaco-patología</span>
+          <span class="pill">🎙️ Lectura en voz alta</span>
+          <span class="pill">🃏 Modo repaso</span>
+          <span class="pill">🖨️ Exporta a PDF</span>
+          <span class="pill">⚡ Sin internet</span>
+        </div>
+        <div class="start-actions">
+          <button class="primary" id="openButton">Abrir la guía</button>
+          <button class="secondary" id="reviewStartButton">Ir al repaso</button>
+        </div>
+        <p class="tiny-note">Basado en las guías de práctica clínica vigentes del IETSI-EsSalud: infarto agudo de miocardio con ST elevado (GPC N° 51, 2022), fibrilación auricular (GPC N° 61, 2023), insuficiencia cardiaca crónica (GPC N° 67, 2024) y síndrome coronario crónico (GPC N° 70, V.02 de 2025), y en el Petitorio Nacional Único de Medicamentos Esenciales de DIGEMID-MINSA (RM N° 633-2023/MINSA). No se identificó una NTS del MINSA específica para estas seis patologías; en la valvulopatía reumática se sigue la guía OMS 2024. Las dosis se individualizan y no reemplazan la prescripción médica ni los protocolos de cada institución.</p>
+      </div>
+    </div>
+  </section>
+
+  <header class="hud hidden" id="hud"><div class="hud-inner">
+    <button class="brand" id="mapButton" title="Volver al listado">
+      <span class="brand-mark">🫀</span>
+      <span class="brand-text">Vademécum Cardio <small>Sistema cardiovascular</small></span>
+    </button>
+    <div>
+      <div class="progress-top"><span>Medicamentos estudiados</span><span id="progressPercent">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="hud-stats">
+      <div class="stat hide-small" title="Estudiados">✅ <span id="doneStat">0/15</span></div>
+      <button class="icon-button" id="reviewButton" title="Modo repaso">🃏</button>
+      <button class="icon-button" id="ttsButton" aria-pressed="false" title="Lectura en voz alta">🎙️</button>
+      <button class="icon-button hide-small" id="fontButton" title="Tamaño de letra">🔠</button>
+      <button class="icon-button" id="logButton" title="Bitácora de estudio">📘</button>
+      <button class="icon-button hide-small" id="printButton" title="Imprimir o guardar en PDF">🖨️</button>
+      <button class="icon-button hide-small" id="fullscreenButton" title="Pantalla completa">⛶</button>
+    </div>
+  </div></header>
+
+  <main class="game hidden" id="shell" tabindex="-1"></main>
+  <div id="printRoot" class="print-only"></div>
+  <div id="modalRoot"></div>
+  <div id="toastRoot" aria-live="polite"></div>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+const MEDS = [{"id": "aas", "dci": "ÁCIDO ACETILSALICÍLICO", "sub": "Antiagregante plaquetario · Inhibidor de la COX-1 · ATC B01AC06", "cat": "Cardiopatía isquémica e infarto", "icon": "🫀", "color": "#ff6f61", "corto": "Antiagregante base en la cardiopatía isquémica y el infarto de miocardio.", "r": {"comercial": ["Aspirina®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 100 mg (antiagregante) y 500 mg."], "clase": ["Antiagregante plaquetario (AINE a dosis bajas)."], "dosis": ["IAM: carga 150-300 mg masticada; luego 75-100 mg/día.", "Síndrome coronario crónico: 75 a 100 mg/día."], "mecanismo": ["Inhibe de forma irreversible la COX-1 y el tromboxano A₂ de la plaqueta."], "indicado": ["IAM y síndrome coronario agudo y crónico.", "Prevención secundaria tras stent, cirugía coronaria o ACV isquémico."], "vias": ["Oral (dosis de carga masticada)."], "adversos": ["Dispepsia, sangrado digestivo.", "Broncoespasmo en asma sensible a AINE."], "contra": ["Sangrado activo, úlcera péptica activa.", "Alergia a AINE; menores de 16 años."], "cuidados": ["Dar con alimentos.", "Vigilar melena y sangrados.", "No suspender sin indicación."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Aspirina® (Bayer) y genéricos nacionales.", "En el sector público: «Ácido acetilsalicílico» genérico en DCI (PNUME)."], "presentacion": ["Tableta de 100 mg (dosis antiagregante; algunas con cubierta entérica).", "Tableta de 500 mg (dosis analgésica-antipirética)."], "clase": ["Antiagregante plaquetario; antiinflamatorio no esteroideo a dosis altas.", "Grupo ATC B01AC06 (como antiagregante)."], "dosis": ["IAM con elevación del ST: la GPC N° 51 (IETSI 2022) indica AAS asociado a clopidogrel o ticagrelor; dosis habitual de carga 150 a 300 mg VO masticada (no entérica) y mantenimiento 75 a 100 mg/día.", "Síndrome coronario crónico: dosis bajas de 75 a 100 mg/día, valorando el riesgo de sangrado (GPC N° 70, IETSI 2024).", "Tras angioplastia con stent: doble antiagregación con un inhibidor P2Y12, por lo general 12 meses."], "mecanismo": ["Acetila de forma irreversible la ciclooxigenasa-1 (COX-1) de las plaquetas.", "Bloquea la síntesis de tromboxano A₂, potente agregante y vasoconstrictor.", "Como la plaqueta no tiene núcleo y no puede fabricar nueva enzima, el efecto dura toda su vida (7 a 10 días).", "A dosis bajas se conserva en parte la prostaciclina endotelial, que es antiagregante."], "indicado": ["Síndrome coronario agudo e infarto de miocardio (con o sin elevación del ST).", "Síndrome coronario crónico (angina estable) y prevención secundaria tras ACV isquémico.", "Después de angioplastia con stent o cirugía de revascularización."], "vias": ["ORAL: la dosis de carga en el IAM se mastica para una absorción más rápida; la de mantenimiento se toma con alimentos."], "adversos": ["Dispepsia, gastritis, náuseas.", "Sangrado digestivo (úlcera, hematemesis, melena) y otros sangrados.", "Broncoespasmo en asma inducida por AINE; reacciones de hipersensibilidad.", "Tinnitus e intoxicación salicílica con dosis altas; síndrome de Reye en niños con infección viral."], "contra": ["Hemorragia activa o úlcera péptica activa.", "Hipersensibilidad o asma inducida por AAS u otros AINE.", "Hemofilia y otros trastornos de la coagulación graves.", "Menores de 16 años con cuadros virales (riesgo de síndrome de Reye); último trimestre del embarazo a dosis analgésicas."], "cuidados": ["En el dolor torácico típico, indicar masticar la dosis de carga según protocolo y confirmar que no haya alergia.", "Administrar la dosis de mantenimiento con alimentos; valorar gastroprotección indicada por el médico.", "Vigilar signos de sangrado: melena, hematemesis, gingivorragia, hematuria, equimosis.", "Educar para no suspender el antiagregante sin indicación médica (riesgo de trombosis del stent).", "Evitar la automedicación con otros AINE."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 1, "cats": ["Cardiopatía isquémica", "Infarto de miocardio"]}, {"id": "clopidogrel", "dci": "CLOPIDOGREL", "sub": "Antiagregante plaquetario · Inhibidor del receptor P2Y12 · ATC B01AC04", "cat": "Cardiopatía isquémica e infarto", "icon": "🩸", "color": "#ff6f61", "corto": "Inhibidor P2Y12 que se asocia al AAS (doble antiagregación) en el infarto y tras stent.", "r": {"comercial": ["Plavix®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 75 mg (y 300 mg en algunas marcas)."], "clase": ["Antiagregante plaquetario, tienopiridina (inhibidor P2Y12)."], "dosis": ["IAM con fibrinólisis: 300 mg de carga (≤ 75 años); > 75 años: 75 mg sin carga.", "Angioplastia: 600 mg de carga.", "Mantenimiento: 75 mg/día."], "mecanismo": ["Bloquea de forma irreversible el receptor P2Y12 del ADP en la plaqueta."], "indicado": ["IAM y síndrome coronario agudo con AAS.", "Intolerancia al AAS en síndrome coronario crónico."], "vias": ["Oral."], "adversos": ["Sangrado, hematomas.", "Dispepsia, diarrea, exantema."], "contra": ["Sangrado activo.", "Insuficiencia hepática grave."], "cuidados": ["Vigilar sangrado.", "No suspender sin indicación (trombosis del stent).", "Evitar omeprazol (preferir pantoprazol)."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Plavix® (Sanofi), Iscover® y genéricos.", "En el sector público: «Clopidogrel» genérico en DCI (PNUME)."], "presentacion": ["Tableta recubierta de 75 mg.", "Tableta de 300 mg (algunas marcas, para dosis de carga)."], "clase": ["Antiagregante plaquetario del grupo de las tienopiridinas, antagonista del receptor P2Y12.", "Grupo ATC B01AC04."], "dosis": ["IAM con elevación del ST tratado con fibrinólisis: la GPC N° 51 (IETSI 2022) indica AAS + clopidogrel; dosis habitual de carga 300 mg (≤ 75 años) y 75 mg sin carga en mayores de 75 años.", "Angioplastia primaria: AAS + clopidogrel o ticagrelor; carga habitual de clopidogrel 600 mg.", "Mantenimiento: 75 mg VO al día, en general durante 12 meses tras un síndrome coronario agudo.", "Síndrome coronario crónico con intolerancia al AAS: 75 mg una vez al día (GPC N° 70, IETSI 2024)."], "mecanismo": ["Es un profármaco que el hígado activa (principalmente por CYP2C19).", "El metabolito activo se une de forma irreversible al receptor P2Y12 del ADP en la plaqueta.", "Impide la activación del complejo glucoproteico IIb/IIIa y la agregación plaquetaria durante toda la vida de la plaqueta (7 a 10 días).", "Su efecto se suma al del AAS, que actúa por otra vía (tromboxano)."], "indicado": ["Síndrome coronario agudo e infarto de miocardio, junto con AAS (doble antiagregación).", "Después de angioplastia con stent.", "Síndrome coronario crónico o enfermedad arterial cuando no se tolera el AAS.", "Prevención secundaria tras ACV isquémico o enfermedad arterial periférica."], "vias": ["ORAL, con o sin alimentos, a la misma hora cada día."], "adversos": ["Sangrado (digestivo, nasal, hematomas, hematuria); hemorragia intracraneal rara.", "Dispepsia, dolor abdominal, diarrea.", "Exantema y prurito.", "Raros: púrpura trombocitopénica trombótica, neutropenia."], "contra": ["Hemorragia activa (úlcera péptica, hemorragia intracraneal).", "Insuficiencia hepática grave.", "Hipersensibilidad al clopidogrel."], "cuidados": ["Vigilar signos de sangrado y educar al paciente para reconocerlos (heces negras, orina rojiza, hematomas).", "Reforzar que NO debe suspenderse sin indicación del cardiólogo, sobre todo si tiene stent.", "Informar al equipo quirúrgico u odontológico: suele suspenderse 5 días antes de una cirugía programada, solo por indicación médica.", "Evitar omeprazol y esomeprazol (reducen su activación); el médico puede preferir pantoprazol.", "Mantener la doble antiagregación el tiempo indicado y registrar fecha de inicio."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 2, "cats": ["Cardiopatía isquémica", "Infarto de miocardio"]}, {"id": "dinitrato-isosorbida", "dci": "DINITRATO DE ISOSORBIDA", "sub": "Nitrato vasodilatador antianginoso · ATC C01DA08", "cat": "Cardiopatía isquémica e infarto", "icon": "⚡", "color": "#ff6f61", "corto": "Nitrato sublingual de rescate para la angina y oral como antianginoso.", "r": {"comercial": ["Isordil®; genérico en DCI (PNUME)."], "presentacion": ["Tableta sublingual de 5 mg; tableta oral de 10 mg."], "clase": ["Nitrato orgánico, vasodilatador antianginoso."], "dosis": ["Rescate: 5 mg SL; repetir a los 5 min si persiste el dolor.", "Oral: 10 mg c/8 h (máx. 20 mg c/6 h) con 10 h libres de nitrato."], "mecanismo": ["Libera óxido nítrico: venodilatación (↓ precarga) y vasodilatación coronaria."], "indicado": ["Alivio inmediato de la angina y prevención antes del esfuerzo.", "Angina crónica; insuficiencia cardiaca (asociado)."], "vias": ["Sublingual y oral."], "adversos": ["Cefalea, hipotensión, mareo.", "Taquicardia refleja, rubor; tolerancia."], "contra": ["Uso de sildenafil o tadalafil.", "Hipotensión, IAM de ventrículo derecho, estenosis aórtica grave."], "cuidados": ["Paciente sentado al dar SL.", "Medir PA antes y después.", "Preguntar por fármacos para disfunción eréctil.", "Si el dolor sigue 5 min después de la 2.ª dosis: emergencia."], "fuente": ["IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Isordil® y genéricos nacionales.", "En el sector público: «Dinitrato de isosorbida» genérico en DCI (PNUME)."], "presentacion": ["Tableta sublingual de 5 mg.", "Tableta oral de 10 mg."], "clase": ["Nitrato orgánico de acción corta (vía sublingual) e intermedia (vía oral), vasodilatador antianginoso.", "Grupo ATC C01DA08."], "dosis": ["Rescate de la angina (GPC N° 70): reposo físico; si el dolor no calma, 5 mg por vía sublingual con el paciente sentado y repetir a los 5 minutos si no cede (la tabla de la guía admite repetir hasta los 10 minutos).", "Si el dolor persiste 5 minutos después de la segunda dosis, acudir a emergencia: puede tratarse de un síndrome coronario agudo.", "Antianginoso oral: 10 mg cada 8 h, máximo 20 mg cada 6 h; usar un esquema excéntrico con un intervalo libre de nitrato de unas 10 horas para evitar la tolerancia.", "También puede usarse antes de un esfuerzo que suele desencadenar angina."], "mecanismo": ["Se transforma en óxido nítrico (NO) en el músculo liso vascular.", "El NO activa la guanilato ciclasa y aumenta el GMPc, lo que relaja el músculo liso.", "Predomina la venodilatación: disminuye el retorno venoso (precarga) y el consumo de oxígeno del miocardio.", "Además dilata las arterias coronarias epicárdicas y alivia el vasoespasmo."], "indicado": ["Alivio inmediato de la angina de pecho y profilaxis antes del esfuerzo.", "Angina crónica estable, cuando no se toleran o no bastan los betabloqueadores y calcioantagonistas.", "Insuficiencia cardiaca con edema pulmonar (asociado a otros tratamientos, según indicación)."], "vias": ["SUBLINGUAL: la tableta se deja disolver bajo la lengua; no se traga ni se mastica.", "ORAL: tabletas con agua."], "adversos": ["Cefalea pulsátil (muy frecuente al inicio).", "Hipotensión ortostática, mareo y síncope.", "Taquicardia refleja, rubor facial.", "Tolerancia con uso continuo sin intervalo libre; metahemoglobinemia (rara)."], "contra": ["Uso reciente de inhibidores de la fosfodiesterasa 5: sildenafil (24 h) o tadalafil (48 h): riesgo de hipotensión grave.", "Hipotensión (PAS menor de 90 mmHg) o shock.", "Infarto de ventrículo derecho, estenosis aórtica grave, miocardiopatía hipertrófica obstructiva.", "Hipersensibilidad a los nitratos."], "cuidados": ["Sentar o recostar al paciente antes de administrar la tableta sublingual.", "Medir PA y FC antes y 5 minutos después; no administrar si la PAS es menor de 90 mmHg.", "Preguntar siempre por el uso de sildenafil o tadalafil.", "Valorar y registrar el dolor (escala 0-10) antes y después de cada dosis.", "Educar: llevar siempre las tabletas, guardarlas en su envase original protegido de la luz y la humedad.", "Enseñar la secuencia: reposo, primera tableta sentado, segunda a los 5 minutos y emergencia si el dolor no cede 5 minutos después; acudir a cardiología si la angina aparece con menos esfuerzo o en reposo (GPC N° 70)."], "fuente": ["IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 3, "cats": ["Cardiopatía isquémica", "Infarto de miocardio", "Insuficiencia cardiaca"]}, {"id": "atorvastatina", "dci": "ATORVASTATINA", "sub": "Hipolipemiante · Estatina (inhibidor de la HMG-CoA reductasa) · ATC C10AA05", "cat": "Cardiopatía isquémica e infarto", "icon": "🧈", "color": "#ff6f61", "corto": "Estatina de alta intensidad: reduce el colesterol LDL y estabiliza la placa coronaria.", "r": {"comercial": ["Lipitor®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 10, 20, 40 y 80 mg."], "clase": ["Hipolipemiante, estatina."], "dosis": ["10 mg/día hasta 80 mg/día; titular a la máxima tolerada.", "Meta: LDL < 55 mg/dL o reducción ≥ 50 %."], "mecanismo": ["Inhibe la HMG-CoA reductasa: ↓ síntesis de colesterol y ↑ receptores LDL."], "indicado": ["Síndrome coronario crónico y post-IAM.", "Dislipidemia y prevención cardiovascular."], "vias": ["Oral."], "adversos": ["Mialgias, elevación de transaminasas.", "Miopatía y rabdomiólisis (raras)."], "contra": ["Hepatopatía activa.", "Embarazo y lactancia."], "cuidados": ["Preguntar por dolor muscular y orina oscura.", "Transaminasas a los 3 y 12 meses."], "fuente": ["IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Lipitor® (Pfizer) y genéricos.", "En el sector público: «Atorvastatina» genérico en DCI (PNUME)."], "presentacion": ["Tabletas recubiertas de 10, 20, 40 y 80 mg (según marca y disponibilidad)."], "clase": ["Hipolipemiante del grupo de las estatinas (inhibidor de la HMG-CoA reductasa).", "Grupo ATC C10AA05."], "dosis": ["Síndrome coronario crónico: la GPC N° 70 (IETSI 2024) recomienda estatinas: atorvastatina desde 10 mg/día hasta un máximo de 80 mg/día, titulando a la dosis máxima tolerada.", "Meta: colesterol LDL en ayunas menor de 55 mg/dL o reducción de al menos 50 % respecto del basal a los 3 meses.", "Después de un IAM se usa de forma habitual una estatina de alta intensidad (atorvastatina 40 a 80 mg/día).", "Alternativa de la guía: simvastatina 20 a 40 mg/día."], "mecanismo": ["Inhibe de forma competitiva la HMG-CoA reductasa, enzima limitante de la síntesis hepática de colesterol.", "Al bajar el colesterol intracelular, el hígado expresa más receptores de LDL y retira más LDL de la sangre.", "Tiene efectos pleiotrópicos: estabiliza la placa de ateroma, mejora la función endotelial y reduce la inflamación vascular."], "indicado": ["Síndrome coronario crónico y prevención secundaria después de un infarto o ACV isquémico.", "Hipercolesterolemia y dislipidemia mixta.", "Prevención primaria en personas con alto riesgo cardiovascular (diabetes, ERC, etc.)."], "vias": ["ORAL, una vez al día, a cualquier hora (por su vida media larga), con o sin alimentos."], "adversos": ["Mialgias, calambres y debilidad muscular.", "Elevación de transaminasas (suspender si supera 3 veces el límite superior normal).", "Miopatía y rabdomiólisis (raras, más con dosis altas e interacciones).", "Dispepsia, cefalea; leve aumento del riesgo de diabetes."], "contra": ["Enfermedad hepática activa o elevación persistente e inexplicada de transaminasas.", "Embarazo y lactancia.", "Hipersensibilidad a la atorvastatina.", "Precaución con fármacos que la elevan (claritromicina, algunos antifúngicos azólicos, gemfibrozilo)."], "cuidados": ["Educar para informar dolor o debilidad muscular inexplicada y orina oscura.", "Coordinar el control de transaminasas a los 3 y a los 12 meses, como indica la GPC.", "Reforzar la dieta cardiosaludable, la actividad física y el abandono del tabaco.", "Promover la adherencia a largo plazo: el beneficio depende del uso continuo.", "Evitar el consumo excesivo de alcohol y el jugo de toronja en grandes cantidades."], "fuente": ["IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 4, "cats": ["Cardiopatía isquémica", "Infarto de miocardio"]}, {"id": "enoxaparina", "dci": "ENOXAPARINA SÓDICA", "sub": "Anticoagulante · Heparina de bajo peso molecular (HBPM) · ATC B01AB05", "cat": "Cardiopatía isquémica e infarto", "icon": "💉", "color": "#ff6f61", "corto": "Anticoagulante de bajo peso molecular para el infarto y la profilaxis de trombosis. Medicamento de alto riesgo.", "r": {"comercial": ["Clexane®; genérico en DCI (PNUME)."], "presentacion": ["Jeringas precargadas de 20, 40, 60 y 80 mg."], "clase": ["Anticoagulante, heparina de bajo peso molecular (alto riesgo)."], "dosis": ["IAM < 75 años: bolo IV 30 mg + 1 mg/kg SC c/12 h.", "IAM ≥ 75 años: 0,75 mg/kg SC c/12 h sin bolo.", "Profilaxis: 40 mg SC c/24 h."], "mecanismo": ["Potencia la antitrombina III e inhibe sobre todo el factor Xa."], "indicado": ["IAM y síndrome coronario agudo.", "Profilaxis y tratamiento de TVP/TEP."], "vias": ["Subcutánea profunda; IV solo el bolo en IAM. Nunca IM."], "adversos": ["Sangrado, hematomas.", "Trombocitopenia inducida por heparina."], "contra": ["Sangrado activo, antecedente de TIH.", "ACV hemorrágico."], "cuidados": ["Doble verificación de la dosis.", "No expulsar la burbuja ni masajear.", "Controlar plaquetas; antídoto: protamina."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Clexane® (Sanofi) y otras marcas con registro DIGEMID.", "En el sector público: «Enoxaparina sódica» genérico en DCI (PNUME)."], "presentacion": ["Jeringas precargadas de 20 mg/0,2 mL, 40 mg/0,4 mL, 60 mg/0,6 mL y 80 mg/0,8 mL (100 mg = 10 000 UI anti-Xa)."], "clase": ["Anticoagulante parenteral del grupo de las heparinas de bajo peso molecular.", "Grupo ATC B01AB05. Medicamento de ALTO RIESGO: requiere doble verificación."], "dosis": ["IAM con elevación del ST: la GPC N° 51 (IETSI 2022) indica heparina no fraccionada o enoxaparina lo antes posible. Dosis habitual en menores de 75 años: bolo IV de 30 mg + 1 mg/kg SC, luego 1 mg/kg SC cada 12 h.", "IAM en 75 años o más: SIN bolo IV, 0,75 mg/kg SC cada 12 h.", "Síndrome coronario agudo sin elevación del ST: 1 mg/kg SC cada 12 h.", "Depuración de creatinina menor de 30 mL/min: 1 mg/kg SC cada 24 h.", "Profilaxis de enfermedad tromboembólica en pacientes médicos o quirúrgicos: 40 mg SC cada 24 h."], "mecanismo": ["Se une a la antitrombina III y acelera su acción inhibidora.", "Inactiva principalmente el factor Xa y, en menor grado, la trombina (IIa), con lo que frena la formación de fibrina.", "Tiene efecto predecible y no requiere control rutinario del TTPa; se elimina por vía renal."], "indicado": ["Infarto agudo de miocardio con o sin elevación del ST y angina inestable.", "Profilaxis y tratamiento de la trombosis venosa profunda y el tromboembolismo pulmonar.", "Anticoagulación puente en pacientes con fibrilación auricular o prótesis valvular, según indicación."], "vias": ["SUBCUTÁNEA PROFUNDA: vía de elección.", "INTRAVENOSA: solo el bolo inicial del IAM.", "NUNCA INTRAMUSCULAR: riesgo de hematoma."], "adversos": ["Hemorragia (el más grave) y hematomas en el sitio de punción.", "Trombocitopenia inducida por heparina.", "Hiperkalemia, elevación de transaminasas.", "Hematoma espinal con anestesia neuroaxial."], "contra": ["Hemorragia activa y antecedente de trombocitopenia inducida por heparina.", "ACV hemorrágico reciente, úlcera péptica activa.", "Hipersensibilidad a heparinas."], "cuidados": ["Realizar doble verificación de la dosis calculada por peso.", "Inyectar en tejido subcutáneo del abdomen, a 5 cm del ombligo, pellizcando la piel y en ángulo de 90°; NO expulsar la burbuja de aire y NO masajear.", "Rotar los sitios de punción y vigilar hematomas, gingivorragia, hematuria y melena.", "Controlar plaquetas y creatinina según protocolo.", "Antídoto: sulfato de protamina (neutraliza parcialmente)."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 5, "cats": ["Cardiopatía isquémica", "Infarto de miocardio", "Arritmias", "Valvulopatías"]}, {"id": "alteplasa", "dci": "ALTEPLASA (rt-PA)", "sub": "Fibrinolítico · Activador tisular del plasminógeno recombinante · ATC B01AD02", "cat": "Cardiopatía isquémica e infarto", "icon": "🚑", "color": "#ff6f61", "corto": "Fibrinolítico para el IAM con elevación del ST cuando no hay angioplastia oportuna.", "r": {"comercial": ["Actilyse®."], "presentacion": ["Vial de polvo liofilizado de 50 mg con solvente."], "clase": ["Fibrinolítico (trombolítico) fibrinoespecífico."], "dosis": ["IAM: 15 mg IV en bolo; 0,75 mg/kg en 30 min (máx. 50 mg); 0,5 mg/kg en 60 min (máx. 35 mg). Total máx. 100 mg."], "mecanismo": ["Convierte el plasminógeno en plasmina, que disuelve la fibrina del trombo."], "indicado": ["IAM con ST elevado (≤ 12 h) si no hay angioplastia en 120 min.", "ACV isquémico agudo (otro esquema)."], "vias": ["Intravenosa exclusiva."], "adversos": ["Hemorragia, incluida intracraneal.", "Arritmias de reperfusión, hipotensión."], "contra": ["Hemorragia intracraneal previa, ACV isquémico reciente.", "Sangrado activo, disección aórtica."], "cuidados": ["Dos vías venosas; evitar punciones.", "Monitoreo ECG y neurológico continuo.", "Vigilar signos de reperfusión."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Actilyse® (Boehringer Ingelheim)."], "presentacion": ["Vial de polvo liofilizado de 50 mg con vial de agua estéril de 50 mL para reconstituir (1 mg/mL)."], "clase": ["Fibrinolítico (trombolítico), activador tisular del plasminógeno recombinante (rt-PA).", "Grupo ATC B01AD02. Medicamento de ALTO RIESGO."], "dosis": ["La GPC N° 51 (IETSI 2022) recomienda la estrategia farmacoinvasiva (fibrinólisis seguida de angioplastia) cuando la angioplastia primaria no puede hacerse dentro de los 120 minutos del diagnóstico por ECG; su flujograma menciona la alteplasa.", "Pauta acelerada habitual en el IAM: 15 mg IV en bolo; luego 0,75 mg/kg en 30 minutos (máximo 50 mg); luego 0,5 mg/kg en 60 minutos (máximo 35 mg). Dosis total máxima 100 mg.", "Si la fibrinólisis es exitosa: angioplastia entre 2 y 24 horas; si fracasa: angioplastia de rescate inmediata.", "ACV isquémico (otro esquema): 0,9 mg/kg (máximo 90 mg), 10 % en bolo y el resto en 60 minutos."], "mecanismo": ["Se une a la fibrina del trombo y activa el plasminógeno unido a ella, transformándolo en plasmina.", "La plasmina degrada la fibrina y disuelve el coágulo que ocluye la arteria coronaria.", "Por ser relativamente fibrinoespecífica produce menos estado lítico sistémico que la estreptoquinasa.", "Vida media muy corta (4 a 5 minutos): por eso se administra en bolo e infusión."], "indicado": ["Infarto agudo de miocardio con elevación persistente del ST dentro de las primeras 12 horas, cuando no es posible la angioplastia primaria a tiempo.", "ACV isquémico agudo dentro de la ventana terapéutica.", "Tromboembolismo pulmonar masivo con inestabilidad hemodinámica."], "vias": ["INTRAVENOSA exclusiva (bolo + infusión con bomba), por una vía dedicada."], "adversos": ["Hemorragia: en sitios de punción, digestiva, genitourinaria y, la más grave, intracraneal.", "Arritmias de reperfusión (ritmo idioventricular acelerado, extrasístoles).", "Hipotensión, náuseas, vómitos.", "Angioedema y reacciones alérgicas (raras)."], "contra": ["Absolutas: hemorragia intracraneal previa o ACV de causa desconocida; ACV isquémico en los 6 meses previos; neoplasia o malformación del SNC.", "Traumatismo, cirugía o lesión craneal mayor reciente; sangrado gastrointestinal en el último mes; trastorno hemorrágico conocido.", "Disección aórtica sospechada; punciones no compresibles en las 24 h previas.", "Relativas: HTA no controlada (PAS > 180 mmHg), anticoagulación oral, embarazo, reanimación prolongada."], "cuidados": ["Aplicar la lista de verificación de contraindicaciones antes de iniciar y registrar la hora de inicio del dolor y del ECG.", "Canalizar dos vías venosas periféricas antes de la infusión y evitar punciones arteriales, IM y sondas innecesarias.", "Reconstituir sin agitar (girar suavemente) y administrar con bomba de infusión según el esquema por peso.", "Monitoreo continuo de ECG, PA, FC, SatO₂ y estado neurológico; tener desfibrilador y carro de paro a mano.", "Valorar signos de reperfusión a los 60-90 minutos: alivio del dolor, descenso del ST mayor de 50 % y arritmias de reperfusión; informar de inmediato si no aparecen (angioplastia de rescate).", "La fibrinólisis puede iniciarse en la ambulancia o en un establecimiento sin capacidad de angioplastia (fibrinólisis prehospitalaria), según disponibilidad y dentro de la red de atención del infarto (GPC N° 51)."], "fuente": ["IETSI-EsSalud. GPC N° 51: Manejo inicial del infarto agudo de miocardio con elevación persistente del ST (2022).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 6, "cats": ["Infarto de miocardio"]}, {"id": "enalapril", "dci": "ENALAPRIL", "sub": "Antihipertensivo · Inhibidor de la ECA (IECA) · ATC C09AA02", "cat": "Insuficiencia cardiaca y miocardiopatías", "icon": "❤️‍🩹", "color": "#35e0e7", "corto": "IECA de primera línea en insuficiencia cardiaca con FEVI reducida, miocardiopatía dilatada y post-IAM.", "r": {"comercial": ["Renitec®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 5, 10 y 20 mg."], "clase": ["Inhibidor de la enzima convertidora de angiotensina (IECA)."], "dosis": ["ICC: inicio 2,5 mg c/12 h; máx. 10-20 mg c/12 h.", "Duplicar cada 2 semanas o más."], "mecanismo": ["Bloquea la formación de angiotensina II: vasodilatación y menor remodelado cardiaco."], "indicado": ["ICC con FEVI reducida y miocardiopatía dilatada.", "Post-IAM, HTA, nefropatía diabética."], "vias": ["Oral."], "adversos": ["Tos seca, hipotensión, hiperkalemia.", "Deterioro renal, angioedema."], "contra": ["Angioedema previo, embarazo.", "Estenosis bilateral de arterias renales."], "cuidados": ["Medir PA antes de cada dosis.", "Controlar potasio y creatinina.", "Primera dosis en reposo.", "Suspender y avisar si K > 6 mEq/L."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Renitec® (MSD) y genéricos nacionales.", "En el sector público: «Enalapril maleato» genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 5 mg, 10 mg y 20 mg (según marca y disponibilidad)."], "clase": ["Inhibidor de la enzima convertidora de angiotensina (IECA).", "Grupo ATC C09AA02."], "dosis": ["Insuficiencia cardiaca crónica con FEVI reducida (GPC N° 67, IETSI 2024): inicio 2,5 mg cada 12 h; dosis máxima 10 a 20 mg cada 12 h.", "En pacientes ambulatorios, duplicar la dosis no antes de 2 semanas, hasta la dosis máxima tolerada.", "Antes de iniciar: TFG ≥ 30 mL/min/1,73 m², creatinina < 2,5 mg/dL y potasio < 5,0 mEq/L; suspender si el potasio supera 6 mEq/L o la TFG baja de 30 (GPC N° 67).", "Síndrome coronario crónico con HTA o diabetes (GPC N° 70): 5 mg cada 12-24 h, máximo 20 mg cada 12 h.", "Si no se tolera (tos), la guía propone un ARA II (losartán, valsartán)."], "mecanismo": ["Es un profármaco que se convierte en enalaprilato e inhibe la enzima convertidora de angiotensina.", "Disminuye la angiotensina II: produce vasodilatación arterial y venosa y reduce la poscarga.", "Reduce la secreción de aldosterona: menos retención de sodio y agua.", "Aumenta la bradicinina y frena el remodelado ventricular, por lo que mejora la supervivencia en insuficiencia cardiaca y tras el infarto."], "indicado": ["Insuficiencia cardiaca crónica con FEVI reducida (estadios B y C) y miocardiopatía dilatada.", "Disfunción ventricular izquierda después de un infarto de miocardio.", "Síndrome coronario crónico con HTA o diabetes; hipertensión arterial; nefropatía diabética."], "vias": ["ORAL, con o sin alimentos."], "adversos": ["Tos seca persistente (por la bradicinina).", "Hipotensión, sobre todo con la primera dosis o en pacientes con diuréticos.", "Hiperkalemia y elevación de creatinina.", "Angioedema (raro, pero potencialmente mortal); mareo, fatiga."], "contra": ["Antecedente de angioedema con IECA.", "Embarazo (teratogénico en 2.º y 3.er trimestre).", "Estenosis bilateral de arterias renales o de riñón único.", "Uso conjunto con sacubitril/valsartán (esperar 36 h) o con aliskireno en diabéticos."], "cuidados": ["Medir la PA antes de cada dosis y administrar la primera con el paciente en reposo (riesgo de hipotensión).", "Coordinar el control de potasio y creatinina a 1-2 semanas de iniciar o subir la dosis.", "Vigilar edema de labios, lengua o glotis: suspender y avisar de inmediato.", "Educar para no usar sustitutos de sal con potasio ni AINE sin indicación.", "Registrar peso diario y síntomas de insuficiencia cardiaca."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 7, "cats": ["Cardiopatía isquémica", "Infarto de miocardio", "Insuficiencia cardiaca", "Miocardiopatías"]}, {"id": "carvedilol", "dci": "CARVEDILOL", "sub": "Betabloqueador no selectivo con efecto α1 · ATC C07AG02", "cat": "Insuficiencia cardiaca y miocardiopatías", "icon": "🐢", "color": "#35e0e7", "corto": "Betabloqueador que reduce la mortalidad en insuficiencia cardiaca y miocardiopatía dilatada.", "r": {"comercial": ["Dilatrend®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 6,25, 12,5 y 25 mg."], "clase": ["Betabloqueador no selectivo con bloqueo α1."], "dosis": ["ICC: inicio 3,125 mg c/12 h; máx. 25 mg c/12 h (50 mg c/12 h si > 80 kg).", "Duplicar cada 2 semanas."], "mecanismo": ["Bloquea receptores β1, β2 y α1: ↓ FC, ↓ consumo de O₂ y ↓ remodelado."], "indicado": ["ICC con FEVI reducida y miocardiopatía dilatada.", "Angina crónica; post-IAM."], "vias": ["Oral, con alimentos."], "adversos": ["Bradicardia, hipotensión, mareo, fatiga.", "Empeoramiento transitorio de la ICC, broncoespasmo."], "contra": ["Asma, bloqueo AV de 2.º-3.er grado.", "ICC descompensada, shock."], "cuidados": ["Medir FC y PA antes de dar.", "Peso diario.", "No suspender bruscamente."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Dilatrend® (Roche) y genéricos.", "En el sector público: «Carvedilol» genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 6,25 mg, 12,5 mg y 25 mg (la dosis de 3,125 mg se obtiene partiendo la tableta de 6,25 mg)."], "clase": ["Betabloqueador no selectivo (β1 y β2) con actividad bloqueadora α1 y antioxidante.", "Grupo ATC C07AG02."], "dosis": ["Insuficiencia cardiaca crónica con FEVI reducida (GPC N° 67, IETSI 2024): inicio 3,125 mg cada 12 h; dosis máxima 25 mg cada 12 h (50 mg cada 12 h si el peso es mayor de 80 kg).", "Titulación: duplicar la dosis cada 2 semanas o más si se tolera; iniciar con el paciente estable (euvolémico).", "Síndrome coronario crónico (GPC N° 70): 3,125 mg cada 12 h, máximo 25 mg cada 12 h.", "La guía también acepta bisoprolol (1,25 mg/día hasta 10 mg/día) como betabloqueador en ICC."], "mecanismo": ["Bloquea los receptores β1 cardiacos: disminuye la frecuencia cardiaca, la contractilidad y el consumo de oxígeno.", "Bloquea los receptores α1: produce vasodilatación y reduce la poscarga.", "Atenúa la activación simpática crónica que daña al miocardio, revierte el remodelado y reduce arritmias y muerte súbita."], "indicado": ["Insuficiencia cardiaca crónica con FEVI reducida (estadios B y C) y miocardiopatía dilatada isquémica o no isquémica.", "Disfunción ventricular izquierda tras un infarto.", "Síndrome coronario crónico (angina estable) e hipertensión arterial."], "vias": ["ORAL, con alimentos para reducir la hipotensión ortostática."], "adversos": ["Bradicardia y bloqueos de conducción.", "Hipotensión ortostática, mareo, fatiga.", "Empeoramiento transitorio de la retención hídrica al inicio o al subir la dosis.", "Broncoespasmo; puede enmascarar la hipoglucemia en diabéticos; frialdad de extremidades."], "contra": ["Asma bronquial.", "Bloqueo AV de segundo o tercer grado sin marcapasos, enfermedad del nodo sinusal, bradicardia sintomática.", "Insuficiencia cardiaca descompensada que requiere inotrópicos IV; shock cardiogénico.", "Insuficiencia hepática grave."], "cuidados": ["Medir FC y PA antes de cada dosis; no administrar y avisar si la FC es menor de 50-55 lpm o hay hipotensión sintomática.", "Administrar con alimentos y recomendar levantarse lentamente.", "Indicar control de peso diario: aumento de más de 2 kg en 3 días o más edema debe reportarse.", "Educar para no suspender bruscamente (riesgo de angina, arritmias o IAM).", "En diabéticos, enseñar a reconocer la hipoglucemia sin depender de las palpitaciones.", "Explicar que al subir la dosis puede haber un empeoramiento leve y pasajero del cansancio o de la retención de líquidos; no es motivo para suspenderlo por cuenta propia, y si hay que retirarlo se hace de forma gradual (GPC N° 67)."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "IETSI-EsSalud. GPC N° 70: Manejo del paciente con síndrome coronario crónico, actualización 2024 (V.02, aprobada en 2025).", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 8, "cats": ["Cardiopatía isquémica", "Infarto de miocardio", "Insuficiencia cardiaca", "Miocardiopatías"]}, {"id": "furosemida", "dci": "FUROSEMIDA", "sub": "Diurético de asa · ATC C03CA01", "cat": "Insuficiencia cardiaca y miocardiopatías", "icon": "💧", "color": "#35e0e7", "corto": "Diurético de asa para la congestión en insuficiencia cardiaca y el edema agudo de pulmón.", "r": {"comercial": ["Lasix®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 40 mg; ampollas de 20 mg/2 mL."], "clase": ["Diurético de asa de alta eficacia."], "dosis": ["ICC: 20 a 40 mg 1-2 veces/día; máx. 600 mg/día.", "Edema agudo de pulmón: 40 mg IV o más."], "mecanismo": ["Inhibe el cotransportador Na-K-2Cl en el asa de Henle."], "indicado": ["Congestión en ICC (cualquier FEVI).", "Edema agudo de pulmón, edemas, HTA."], "vias": ["Oral, IV lenta, IM."], "adversos": ["Hipokalemia, hiponatremia, deshidratación.", "Hipotensión, ototoxicidad (IV rápida)."], "contra": ["Anuria, hipovolemia.", "Hipokalemia grave."], "cuidados": ["Balance hídrico y peso diario.", "Controlar potasio.", "IV lenta; dar por la mañana."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Lasix® (Sanofi) y genéricos.", "En el sector público: «Furosemida» genérico en DCI (PNUME)."], "presentacion": ["Tableta de 40 mg.", "Ampolla de 20 mg/2 mL (10 mg/mL) para uso IV o IM."], "clase": ["Diurético de asa (sulfonamídico), de alta eficacia.", "Grupo ATC C03CA01."], "dosis": ["Insuficiencia cardiaca con signos o síntomas de congestión, independientemente de la FEVI (GPC N° 67, IETSI 2024): inicio 20 a 40 mg una o dos veces al día; dosis máxima 600 mg/día.", "Usar la menor dosis que mantenga al paciente sin congestión.", "Edema agudo de pulmón o ICC descompensada (dosis habitual): 40 mg IV, o 1 a 2,5 veces la dosis oral habitual por vía IV en pacientes que ya la reciben.", "Si la congestión persiste pese a dosis altas, la guía permite añadir hidroclorotiazida con vigilancia estrecha."], "mecanismo": ["Inhibe el cotransportador Na⁺-K⁺-2Cl⁻ en la rama ascendente gruesa del asa de Henle.", "Impide la reabsorción de hasta 25 % del sodio filtrado: diuresis intensa con pérdida de sodio, potasio, cloro, magnesio y calcio.", "Por vía IV produce además venodilatación precoz que reduce la precarga antes de la diuresis.", "Inicio: 5 minutos IV y 30-60 minutos VO; duración 2 h IV y 6-8 h VO."], "indicado": ["Congestión pulmonar y sistémica en insuficiencia cardiaca y miocardiopatías.", "Edema agudo de pulmón.", "Edemas de origen renal o hepático; hipertensión arterial con insuficiencia renal; hipercalcemia."], "vias": ["ORAL, de preferencia por la mañana.", "INTRAVENOSA lenta (no más de 4 mg/min) o en infusión continua.", "Intramuscular, si no hay acceso venoso."], "adversos": ["Hipokalemia, hiponatremia, hipomagnesemia y alcalosis metabólica.", "Deshidratación, hipotensión y deterioro de la función renal.", "Ototoxicidad (tinnitus, sordera) con dosis altas IV rápidas o asociada a aminoglucósidos.", "Hiperuricemia (gota), hiperglucemia, fotosensibilidad."], "contra": ["Anuria.", "Hipovolemia o deshidratación grave, hipokalemia o hiponatremia graves.", "Coma hepático.", "Hipersensibilidad a la furosemida (precaución en alergia a sulfonamidas)."], "cuidados": ["Llevar balance hídrico estricto y control de peso diario a la misma hora, con la misma ropa y báscula.", "Coordinar el control de electrolitos (potasio, sodio, magnesio) y creatinina; vigilar calambres, debilidad y arritmias.", "Administrar por vía IV de forma lenta para evitar ototoxicidad.", "Programar las dosis orales por la mañana para no interrumpir el sueño.", "Valorar signos de deshidratación e hipotensión ortostática, sobre todo en adultos mayores."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 9, "cats": ["Infarto de miocardio", "Insuficiencia cardiaca", "Miocardiopatías", "Valvulopatías"]}, {"id": "espironolactona", "dci": "ESPIRONOLACTONA", "sub": "Antagonista de la aldosterona (ARM), diurético ahorrador de potasio · ATC C03DA01", "cat": "Insuficiencia cardiaca y miocardiopatías", "icon": "🫧", "color": "#35e0e7", "corto": "Antagonista mineralocorticoide que reduce la mortalidad en ICC con FEVI reducida.", "r": {"comercial": ["Aldactone®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 25 mg y 100 mg."], "clase": ["Antagonista del receptor mineralocorticoide; ahorrador de potasio."], "dosis": ["ICC: inicio 25 mg/día; máx. 50 mg/día.", "TFG 30-40: 12,5 mg/día."], "mecanismo": ["Bloquea la aldosterona: natriuresis, retiene potasio y ↓ fibrosis miocárdica."], "indicado": ["ICC con FEVI reducida (estadio C).", "Ascitis cirrótica, hiperaldosteronismo."], "vias": ["Oral."], "adversos": ["Hiperkalemia.", "Ginecomastia, deterioro renal."], "contra": ["Potasio > 5 mEq/L, TFG < 30.", "Enfermedad de Addison."], "cuidados": ["Controlar potasio y creatinina.", "Evitar suplementos de K y sal con K."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "d": {"comercial": ["Aldactone® (Pfizer) y genéricos.", "En el sector público: «Espironolactona» genérico en DCI (PNUME)."], "presentacion": ["Tableta de 25 mg.", "Tableta de 100 mg."], "clase": ["Antagonista del receptor mineralocorticoide (ARM); diurético ahorrador de potasio.", "Grupo ATC C03DA01."], "dosis": ["Insuficiencia cardiaca crónica con FEVI reducida, estadio C (GPC N° 67, IETSI 2024): inicio 25 mg cada 24 h; dosis máxima 50 mg cada 24 h.", "Iniciar con TFG ≥ 30 mL/min/1,73 m², creatinina < 2,5 mg/dL y potasio < 5,0 mEq/L; llegar a la dosis máxima en 4 a 8 semanas y suspender si el potasio supera 6 mEq/L o la TFG baja de 30.", "Si la TFG está entre 30 y 40 mL/min/1,73 m²: 12,5 mg al día.", "Si aparece ginecomastia o mastodinia en varones, la guía autoriza cambiar a eplerenona 25-50 mg/día en casos que cumplan criterios."], "mecanismo": ["Bloquea de forma competitiva el receptor de la aldosterona en el túbulo distal y colector.", "Aumenta la excreción de sodio y agua y reduce la de potasio y magnesio.", "En el corazón y los vasos inhibe la fibrosis y el remodelado inducidos por la aldosterona, lo que reduce la mortalidad y las hospitalizaciones."], "indicado": ["Insuficiencia cardiaca crónica con FEVI reducida sintomática y miocardiopatía dilatada.", "Insuficiencia cardiaca con FEVI levemente reducida (41-49 %) o preservada (≥ 50 %), como recomendación condicional de la GPC N° 67.", "Disfunción ventricular izquierda después de un infarto.", "Ascitis por cirrosis, hiperaldosteronismo primario, HTA resistente."], "vias": ["ORAL, con alimentos."], "adversos": ["Hiperkalemia (el más importante, sobre todo con IECA/ARA II y función renal disminuida).", "Ginecomastia y dolor mamario en varones; trastornos menstruales.", "Deterioro de la función renal, hiponatremia.", "Molestias digestivas, somnolencia."], "contra": ["Potasio sérico mayor de 5 mEq/L.", "Insuficiencia renal grave (TFG menor de 30 mL/min/1,73 m²) o anuria.", "Enfermedad de Addison.", "Uso con otros ahorradores de potasio o suplementos de potasio."], "cuidados": ["Coordinar el control de potasio y creatinina al iniciar y cada 2 semanas durante el ajuste de dosis, o según criterio médico (GPC N° 67).", "Educar para evitar suplementos de potasio, sustitutos de sal con potasio y AINE.", "Vigilar debilidad muscular, parestesias o arritmias (signos de hiperkalemia).", "Preguntar por molestias mamarias en varones.", "Reforzar el control de peso diario y la restricción de sodio indicada."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID)."]}, "n": 10, "cats": ["Infarto de miocardio", "Insuficiencia cardiaca", "Miocardiopatías"]}, {"id": "dapagliflozina", "dci": "DAPAGLIFLOZINA", "sub": "Inhibidor del cotransportador SGLT2 · ATC A10BK01", "cat": "Insuficiencia cardiaca y miocardiopatías", "icon": "🍃", "color": "#35e0e7", "corto": "Inhibidor SGLT2 con beneficio cardiorrenal en insuficiencia cardiaca, con o sin diabetes.", "r": {"comercial": ["Forxiga®."], "presentacion": ["Tabletas de 10 mg."], "clase": ["Inhibidor del cotransportador sodio-glucosa tipo 2 (iSGLT2)."], "dosis": ["ICC NYHA II-IV: 10 mg VO c/24 h.", "Requiere TFG ≥ 25 mL/min/1,73 m²."], "mecanismo": ["Bloquea la reabsorción renal de glucosa y sodio: glucosuria y natriuresis."], "indicado": ["ICC con FEVI reducida, levemente reducida o preservada (con o sin diabetes).", "Diabetes tipo 2, enfermedad renal crónica."], "vias": ["Oral."], "adversos": ["Infecciones genitales micóticas, ITU.", "Deshidratación, cetoacidosis euglucémica (rara)."], "contra": ["Diabetes tipo 1.", "TFG < 25 al inicio."], "cuidados": ["Higiene genital.", "Hidratación.", "Suspender antes de cirugía mayor o ayuno."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Forxiga® (AstraZeneca); disponible en EsSalud según dictamen del IETSI."], "presentacion": ["Tableta recubierta de 10 mg."], "clase": ["Inhibidor del cotransportador sodio-glucosa tipo 2 (gliflozina).", "Grupo ATC A10BK01."], "dosis": ["Insuficiencia cardiaca con FEVI ≤ 40 % y clase NYHA II-IV pese a la terapia médica tolerada (GPC N° 67, IETSI 2024; uso aprobado por el Dictamen N° 049-DETS-IETSI-2022): 10 mg VO cada 24 h, que es a la vez la dosis inicial y la máxima.", "Requiere TFG de 25 mL/min/1,73 m² o más para iniciar.", "Para iniciarla se pide un ecocardiograma de los últimos 12 meses con FEVI ≤ 40 % y terapia médica tolerada a dosis máxima tolerada durante 1 a 3 meses previos.", "No necesita titulación; se agrega al IECA/ARA II, betabloqueador y antagonista mineralocorticoide."], "mecanismo": ["Inhibe el cotransportador SGLT2 del túbulo contorneado proximal.", "Aumenta la eliminación urinaria de glucosa y de sodio (glucosuria y natriuresis), con diuresis osmótica leve.", "Reduce la precarga y la poscarga, mejora el metabolismo energético del miocardio y protege la función renal.", "Su beneficio en insuficiencia cardiaca es independiente de la presencia de diabetes."], "indicado": ["Insuficiencia cardiaca crónica con FEVI reducida sintomática, con o sin diabetes.", "Insuficiencia cardiaca con FEVI levemente reducida (41-49 %) o preservada (≥ 50 %) en clase NYHA II-IV: la GPC N° 67 recomienda un iSGLT2 (recomendación fuerte), según las condiciones del dictamen IETSI vigente.", "Diabetes mellitus tipo 2.", "Enfermedad renal crónica, según indicación especializada."], "vias": ["ORAL, una vez al día, con o sin alimentos."], "adversos": ["Infecciones micóticas genitales (vulvovaginitis, balanitis) e infecciones urinarias.", "Depleción de volumen e hipotensión, sobre todo con diuréticos y en adultos mayores.", "Cetoacidosis euglucémica (rara, en ayuno, cirugía o enfermedad aguda).", "Hipoglucemia si se asocia a insulina o sulfonilureas."], "contra": ["Diabetes mellitus tipo 1 o antecedente de cetoacidosis.", "TFG menor de 25 mL/min/1,73 m² al inicio para esta indicación.", "Hipersensibilidad a la dapagliflozina."], "cuidados": ["Educar sobre higiene genital diaria y reconocimiento de síntomas de infección urinaria o micótica.", "Vigilar el estado de hidratación, la PA y el peso, sobre todo si recibe furosemida.", "Indicar suspensión temporal (según el médico) 3 días antes de una cirugía mayor, en ayuno prolongado o enfermedad aguda con vómitos.", "Vigilar la glucemia en diabéticos que usan insulina o sulfonilureas.", "Reportar náuseas, vómitos, dolor abdominal o respiración rápida (posible cetoacidosis).", "Diferir el inicio si hay una infección micótica genitourinaria hasta resolverla (GPC N° 67)."], "fuente": ["IETSI-EsSalud. GPC N° 67: Diagnóstico y tratamiento de la insuficiencia cardiaca crónica, actualización 2024.", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 11, "cats": ["Insuficiencia cardiaca", "Miocardiopatías"]}, {"id": "amiodarona", "dci": "AMIODARONA", "sub": "Antiarrítmico clase III · ATC C01BD01", "cat": "Arritmias y valvulopatías", "icon": "📈", "color": "#a98cff", "corto": "Antiarrítmico de amplio espectro para FA con disfunción ventricular y arritmias ventriculares.", "r": {"comercial": ["Cordarone®; genérico en DCI (PNUME)."], "presentacion": ["Ampolla de 150 mg/3 mL; tabletas de 200 mg."], "clase": ["Antiarrítmico clase III (con efectos I, II y IV)."], "dosis": ["IV: 150 mg en 10 min, luego 1 mg/min 6 h y 0,5 mg/min 18 h.", "Paro (FV/TVSP): 300 mg IV; luego 150 mg.", "VO: carga y mantenimiento 100-200 mg/día."], "mecanismo": ["Bloquea canales de potasio: prolonga el potencial de acción y el período refractario."], "indicado": ["FA con disfunción del VI o insuficiencia cardiaca.", "Taquicardia y fibrilación ventricular."], "vias": ["IV (diluida en dextrosa 5 %) y oral."], "adversos": ["Hipotensión, bradicardia, flebitis.", "Tiroides, pulmón, hígado; fotosensibilidad."], "contra": ["Bradicardia, bloqueo AV avanzado sin marcapasos.", "Disfunción tiroidea, QT largo."], "cuidados": ["Monitoreo ECG y PA.", "Diluir solo en dextrosa 5 %.", "Vigilar interacciones (digoxina, warfarina)."], "fuente": ["IETSI-EsSalud. GPC N° 61: Manejo de pacientes con fibrilación auricular, actualización 2023.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Cordarone® (Sanofi) y genéricos.", "En el sector público: «Amiodarona clorhidrato» genérico en DCI (PNUME)."], "presentacion": ["Ampolla de 150 mg/3 mL (50 mg/mL) para uso IV.", "Tableta de 200 mg."], "clase": ["Antiarrítmico clase III de Vaughan-Williams, con propiedades de las clases I, II y IV.", "Grupo ATC C01BD01."], "dosis": ["Fibrilación auricular: la GPC N° 61 (IETSI 2023) sugiere considerar amiodarona para el control del RITMO en pacientes con disfunción ventricular izquierda o insuficiencia cardiaca, y NO usarla para el control de la frecuencia a largo plazo.", "Taquiarritmia con pulso (dosis habitual): 150 mg IV en 10 minutos; luego infusión de 1 mg/min por 6 horas y 0,5 mg/min por 18 horas (máximo unos 2,2 g en 24 h).", "Paro cardiaco por FV o TV sin pulso (ACLS): 300 mg IV en bolo tras la tercera descarga; segunda dosis de 150 mg.", "Vía oral (dosis habitual): carga de 200 mg cada 8 h por 1 semana, 200 mg cada 12 h por 1 semana; mantenimiento 100 a 200 mg/día."], "mecanismo": ["Bloquea los canales de potasio y prolonga la repolarización, la duración del potencial de acción y el período refractario (clase III).", "También bloquea canales de sodio (clase I) y de calcio (clase IV) y tiene acción antiadrenérgica no competitiva (clase II).", "Enlentece la conducción en el nodo AV y disminuye la frecuencia cardiaca.", "Contiene yodo y tiene una vida media muy larga (semanas), por lo que sus efectos persisten tras suspenderla."], "indicado": ["Fibrilación y flutter auricular, especialmente con disfunción ventricular o insuficiencia cardiaca (control del ritmo).", "Taquicardia ventricular y fibrilación ventricular, incluido el paro cardiaco refractario a la desfibrilación.", "Taquicardias supraventriculares refractarias."], "vias": ["INTRAVENOSA: diluida SOLO en dextrosa 5 %, de preferencia por vía central si la infusión dura más de 1 hora o la concentración supera 2 mg/mL; usar bomba de infusión.", "ORAL: tabletas con alimentos."], "adversos": ["Agudos (IV): hipotensión, bradicardia, bloqueo AV, flebitis grave.", "Prolongación del QT y torsades de pointes (raras).", "Crónicos: hipo o hipertiroidismo, toxicidad pulmonar (neumonitis, fibrosis), hepatotoxicidad.", "Depósitos corneales, fotosensibilidad y coloración gris-azulada de la piel, neuropatía periférica."], "contra": ["Bradicardia sinusal, enfermedad del nodo sinusal o bloqueo AV de 2.º-3.er grado sin marcapasos.", "Disfunción tiroidea; hipersensibilidad al yodo o a la amiodarona.", "QT largo congénito o adquirido; uso con otros fármacos que prolongan el QT.", "Embarazo y lactancia (salvo situaciones que amenacen la vida)."], "cuidados": ["Monitoreo continuo de ECG (FC, PR, QT), PA y SatO₂ durante la administración IV.", "Diluir solo en dextrosa 5 %, usar bomba de infusión y vigilar el sitio de inserción (flebitis).", "Informar interacciones: reduce la eliminación de digoxina y potencia la warfarina (el médico suele reducir sus dosis).", "Coordinar controles de función tiroidea, hepática, radiografía de tórax y examen oftalmológico en tratamientos prolongados.", "Educar sobre protección solar estricta y reporte de tos, disnea o cambios visuales."], "fuente": ["IETSI-EsSalud. GPC N° 61: Manejo de pacientes con fibrilación auricular, actualización 2023.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 12, "cats": ["Insuficiencia cardiaca", "Miocardiopatías", "Arritmias"]}, {"id": "digoxina", "dci": "DIGOXINA", "sub": "Glucósido cardiaco · Inotrópico y control de frecuencia · ATC C01AA05", "cat": "Arritmias y valvulopatías", "icon": "🌿", "color": "#a98cff", "corto": "Glucósido digitálico para controlar la frecuencia en FA y como inotrópico en insuficiencia cardiaca.", "r": {"comercial": ["Lanoxin®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 0,25 mg; ampollas de 0,5 mg/2 mL."], "clase": ["Glucósido cardiaco (digitálico)."], "dosis": ["Mantenimiento: 0,125 a 0,25 mg/día VO.", "Adultos mayores o IR: 0,0625 a 0,125 mg/día."], "mecanismo": ["Inhibe la bomba Na⁺/K⁺-ATPasa: ↑ contractilidad y ↓ conducción AV."], "indicado": ["Control de frecuencia en FA (sedentarios o combinada).", "ICC sintomática pese a tratamiento óptimo."], "vias": ["Oral e IV lenta."], "adversos": ["Toxicidad: náuseas, visión amarilla, bradicardia, arritmias.", "Potenciada por hipokalemia."], "contra": ["Bloqueo AV avanzado, WPW con FA.", "Intoxicación digitálica, miocardiopatía hipertrófica obstructiva."], "cuidados": ["Pulso apical 1 min antes de dar (no dar si < 60 lpm).", "Controlar potasio y función renal.", "Vigilar signos de toxicidad."], "fuente": ["IETSI-EsSalud. GPC N° 61: Manejo de pacientes con fibrilación auricular, actualización 2023.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Lanoxin® y genéricos.", "En el sector público: «Digoxina» genérico en DCI (PNUME)."], "presentacion": ["Tableta de 0,25 mg.", "Ampolla de 0,5 mg/2 mL (0,25 mg/mL).", "Solución oral pediátrica (según disponibilidad)."], "clase": ["Glucósido cardiaco (digitálico), inotrópico positivo y cronotrópico negativo.", "Grupo ATC C01AA05."], "dosis": ["Fibrilación auricular (GPC N° 61, IETSI 2023): puede considerarse en monoterapia en pacientes sedentarios con FA no paroxística, o en combinación con betabloqueador, verapamilo o diltiazem si el control es insuficiente.", "Mantenimiento habitual: 0,125 a 0,25 mg VO al día.", "Adultos mayores, bajo peso o insuficiencia renal: 0,0625 a 0,125 mg/día.", "Digitalización rápida IV (dosis habitual): 0,25 a 0,5 mg y luego 0,25 mg cada 6 h hasta 0,75-1,5 mg en 24 h.", "Rango sérico deseable en insuficiencia cardiaca: 0,5 a 0,9 ng/mL."], "mecanismo": ["Inhibe la bomba Na⁺/K⁺-ATPasa del miocito: aumenta el sodio intracelular y, por el intercambiador Na⁺/Ca²⁺, el calcio intracelular.", "Más calcio disponible aumenta la fuerza de contracción (inotropismo positivo).", "Aumenta el tono vagal y enlentece la conducción en el nodo AV, lo que reduce la respuesta ventricular en la FA.", "Margen terapéutico estrecho; se elimina por vía renal."], "indicado": ["Control de la frecuencia ventricular en fibrilación o flutter auricular, sobre todo en pacientes sedentarios o con insuficiencia cardiaca.", "Insuficiencia cardiaca con FEVI reducida que sigue sintomática pese al tratamiento óptimo."], "vias": ["ORAL, a la misma hora cada día.", "INTRAVENOSA lenta (en al menos 5 minutos); evitar la vía IM (dolorosa y errática)."], "adversos": ["Intoxicación digitálica: anorexia, náuseas, vómitos, diarrea.", "Visión borrosa o amarillo-verdosa (xantopsia), confusión, delirio (más en adultos mayores).", "Bradicardia, bloqueos AV y arritmias ventriculares (bigeminismo, taquicardia ventricular).", "La hipokalemia, la hipomagnesemia, la hipercalcemia y la insuficiencia renal aumentan la toxicidad."], "contra": ["Bloqueo AV de segundo o tercer grado sin marcapasos; enfermedad del nodo sinusal.", "Síndrome de Wolff-Parkinson-White con fibrilación auricular.", "Miocardiopatía hipertrófica obstructiva.", "Intoxicación digitálica, fibrilación ventricular."], "cuidados": ["Tomar el pulso apical durante 1 minuto completo antes de cada dosis; no administrar y avisar si es menor de 60 lpm en adultos o si hay un ritmo nuevo irregular.", "Coordinar el control de potasio, magnesio, creatinina y, si se indica, digoxinemia.", "Vigilar náuseas, cambios visuales y confusión; reportarlos de inmediato.", "Revisar interacciones: amiodarona, verapamilo y claritromicina elevan sus niveles; los diuréticos favorecen la hipokalemia.", "Antídoto en intoxicación grave: fragmentos Fab antidigoxina."], "fuente": ["IETSI-EsSalud. GPC N° 61: Manejo de pacientes con fibrilación auricular, actualización 2023.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 13, "cats": ["Insuficiencia cardiaca", "Arritmias", "Valvulopatías"]}, {"id": "warfarina", "dci": "WARFARINA", "sub": "Anticoagulante oral antagonista de la vitamina K · ATC B01AA03", "cat": "Arritmias y valvulopatías", "icon": "🩹", "color": "#a98cff", "corto": "Anticoagulante oral de elección en prótesis valvular mecánica y estenosis mitral con FA. Alto riesgo.", "r": {"comercial": ["Coumadin®; genérico en DCI (PNUME)."], "presentacion": ["Tabletas de 5 mg."], "clase": ["Anticoagulante oral, antagonista de la vitamina K (alto riesgo)."], "dosis": ["Inicio 2,5 a 5 mg/día; ajustar según INR.", "INR meta 2-3 (FA, TVP); 2,5-3,5 en prótesis mecánica mitral."], "mecanismo": ["Inhibe la síntesis de factores II, VII, IX y X dependientes de vitamina K."], "indicado": ["FA valvular (prótesis mecánica, estenosis mitral).", "FA no valvular, TVP/TEP."], "vias": ["Oral."], "adversos": ["Sangrado.", "Necrosis cutánea; teratogenicidad."], "contra": ["Embarazo, sangrado activo.", "Imposibilidad de controlar el INR."], "cuidados": ["Controles de INR.", "Dieta constante en vitamina K.", "Vigilar sangrados; antídoto: vitamina K."], "fuente": ["IETSI-EsSalud. GPC N° 61: Manejo de pacientes con fibrilación auricular, actualización 2023.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Coumadin® y genéricos.", "En el sector público: «Warfarina sódica» genérico en DCI (PNUME)."], "presentacion": ["Tableta de 5 mg (ranurada para fraccionar)."], "clase": ["Anticoagulante oral cumarínico, antagonista de la vitamina K.", "Grupo ATC B01AA03. Medicamento de ALTO RIESGO."], "dosis": ["FA con prótesis valvular mecánica o estenosis mitral moderada-grave: iniciar warfarina independientemente del puntaje CHA₂DS₂-VASc (GPC N° 61, IETSI 2023).", "Inicio habitual: 2,5 a 5 mg/día (menos en adultos mayores, desnutridos o con hepatopatía); ajustar según INR.", "INR objetivo habitual: 2 a 3 en FA y TVP/TEP; 2,5 a 3,5 en prótesis mecánica mitral o con factores de riesgo.", "La GPC recomienda calcular el tiempo en rango terapéutico (TTR) en cada consulta y reevaluar si es menor de 65 %, si hay 2 INR > 5 o 1 INR > 8 en 6 meses, o 2 INR < 1,5 en 6 meses."], "mecanismo": ["Inhibe la enzima vitamina K epóxido reductasa (VKORC1) e impide el reciclaje de la vitamina K.", "Bloquea la gamma-carboxilación de los factores II, VII, IX y X y de las proteínas C y S.", "El efecto anticoagulante completo tarda 3 a 5 días; al inicio puede haber un estado protrombótico transitorio (por eso a veces se asocia heparina).", "Gran variabilidad individual por genética, dieta e interacciones."], "indicado": ["Fibrilación auricular valvular (prótesis mecánica, estenosis mitral reumática) y no valvular.", "Prótesis valvulares mecánicas (valvulopatías operadas).", "Tratamiento y prevención de la trombosis venosa profunda y el tromboembolismo pulmonar."], "vias": ["ORAL, una vez al día, a la misma hora (habitualmente por la tarde para ajustar la dosis tras el resultado del INR)."], "adversos": ["Hemorragia (menor o mayor, incluida intracraneal): principal riesgo.", "Necrosis cutánea en los primeros días (déficit de proteína C).", "Síndrome de los dedos morados, alopecia.", "Teratogenicidad (embriopatía warfarínica)."], "contra": ["Embarazo, sobre todo en el primer trimestre y al final.", "Hemorragia activa o diátesis hemorrágica; ACV hemorrágico reciente.", "HTA grave no controlada; cirugía reciente del SNC u ocular.", "Pacientes que no pueden cumplir el tratamiento ni los controles del INR."], "cuidados": ["Controlar el INR en intervalos cortos hasta lograr un valor estable y luego cada mes; registrar cada valor y la dosis en una tarjeta única de control de INR (GPC N° 61).", "Educar sobre dieta constante en vitamina K (no eliminar las verduras de hoja verde, sino mantener la cantidad estable) y evitar el alcohol.", "Revisar interacciones: AINE, antibióticos, amiodarona, fluconazol y plantas medicinales alteran el INR.", "Vigilar y enseñar a reconocer signos de sangrado; usar cepillo suave y evitar inyecciones IM.", "Antídoto: vitamina K (fitomenadiona) y, en sangrado grave, plasma fresco congelado o concentrado de complejo protrombínico."], "fuente": ["IETSI-EsSalud. GPC N° 61: Manejo de pacientes con fibrilación auricular, actualización 2023.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 14, "cats": ["Arritmias", "Valvulopatías"]}, {"id": "penicilina-benzatinica", "dci": "BENCILPENICILINA BENZATÍNICA", "sub": "Penicilina de depósito · ATC J01CE08", "cat": "Arritmias y valvulopatías", "icon": "🛡️", "color": "#a98cff", "corto": "Penicilina de acción prolongada para prevenir la fiebre reumática y la valvulopatía reumática.", "r": {"comercial": ["Benzetacil®; genérico en DCI (PNUME)."], "presentacion": ["Polvo para suspensión inyectable de 1 200 000 UI (y 2 400 000 UI)."], "clase": ["Antibiótico betalactámico, penicilina de depósito."], "dosis": ["Profilaxis secundaria de fiebre reumática: ≥ 30 kg 1 200 000 UI IM c/4 semanas; < 30 kg 600 000 UI.", "Faringitis estreptocócica: dosis única."], "mecanismo": ["Libera penicilina G lentamente: inhibe la pared del estreptococo."], "indicado": ["Prevención de recurrencias de fiebre reumática y de valvulopatía reumática.", "Faringoamigdalitis estreptocócica; sífilis."], "vias": ["Solo intramuscular profunda. NUNCA IV."], "adversos": ["Dolor en el sitio de inyección.", "Anafilaxia (rara), reacción de Hoigné."], "contra": ["Alergia a penicilinas.", "Vía intravenosa."], "cuidados": ["Observar 30 min tras la inyección.", "Kit de anafilaxia disponible.", "Registrar fecha de la próxima dosis."], "fuente": ["OMS. WHO guideline on the prevention and diagnosis of rheumatic fever and rheumatic heart disease (2024); no se identificó GPC ni NTS nacional específica.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "d": {"comercial": ["Benzetacil® y genéricos.", "En el sector público: «Bencilpenicilina benzatínica» genérico en DCI (PNUME)."], "presentacion": ["Polvo para suspensión inyectable de 1 200 000 UI con solvente.", "Polvo para suspensión inyectable de 2 400 000 UI (según disponibilidad)."], "clase": ["Antibiótico betalactámico, penicilina natural de depósito (acción prolongada).", "Grupo ATC J01CE08."], "dosis": ["Profilaxis secundaria de fiebre reumática y cardiopatía reumática (referencia OMS 2024): 1 200 000 UI IM cada 4 semanas en personas de 30 kg o más; 600 000 UI en menores de 30 kg (en alto riesgo puede indicarse cada 3 semanas).", "Duración habitual: sin carditis, 5 años o hasta los 21 años; con carditis leve, 10 años o hasta los 21 años; con valvulopatía moderada-grave, 10 años o hasta los 40 años, o de por vida (lo que sea más largo).", "Faringoamigdalitis estreptocócica (prevención primaria): dosis única de 1 200 000 UI (≥ 30 kg) o 600 000 UI (< 30 kg).", "Sífilis temprana: 2 400 000 UI IM en dosis única."], "mecanismo": ["La sal benzatínica se libera lentamente desde el músculo y mantiene niveles bajos pero sostenidos de penicilina G durante 3 a 4 semanas.", "La penicilina G inhibe la síntesis de la pared bacteriana del Streptococcus pyogenes (grupo A).", "Al erradicar y prevenir nuevas infecciones estreptocócicas evita las recurrencias de fiebre reumática, que son las que agravan el daño de las válvulas (sobre todo la mitral)."], "indicado": ["Profilaxis secundaria en personas con antecedente de fiebre reumática o cardiopatía reumática (valvulopatía reumática).", "Tratamiento de la faringoamigdalitis por estreptococo del grupo A (prevención primaria de la fiebre reumática).", "Sífilis primaria, secundaria y latente."], "vias": ["INTRAMUSCULAR PROFUNDA exclusiva: cuadrante superoexterno del glúteo o región ventroglútea; en niños pequeños, cara anterolateral del muslo.", "NUNCA por vía intravenosa: puede causar paro cardiaco y muerte."], "adversos": ["Dolor, induración y nódulos en el sitio de inyección (frecuentes).", "Reacciones alérgicas: urticaria y, rara vez, anafilaxia.", "Reacción de Hoigné (no alérgica, por microembolia del depósito): ansiedad, alucinaciones, sensación de muerte inminente.", "Reacción de Jarisch-Herxheimer al tratar la sífilis; absceso o lesión del nervio ciático si la técnica es incorrecta."], "contra": ["Hipersensibilidad a penicilinas (en profilaxis se usan alternativas orales según indicación).", "Administración por vía intravenosa o en zonas vasculares."], "cuidados": ["Preguntar por alergias y tener disponible el kit de anafilaxia (adrenalina) antes de inyectar.", "Reconstituir según el fabricante, agitar bien y usar aguja de calibre adecuado (21 G) para evitar obstrucción; puede usarse lidocaína como diluyente si el producto lo permite, para disminuir el dolor.", "Aplicar IM profunda y lenta, verificando que no se ha puncionado un vaso; rotar el sitio entre dosis.", "Mantener al paciente en observación 30 minutos después de la inyección.", "Registrar la fecha en el carné y programar la siguiente dosis: la adherencia es clave para evitar el daño valvular."], "fuente": ["OMS. WHO guideline on the prevention and diagnosis of rheumatic fever and rheumatic heart disease (2024); no se identificó GPC ni NTS nacional específica.", "MINSA. Petitorio Nacional Único de Medicamentos Esenciales (PNUME), RM N° 633-2023/MINSA (DIGEMID).", "Ficha técnica del producto con registro sanitario DIGEMID (dosis habituales cuando la guía nacional no las especifica)."]}, "n": 15, "cats": ["Valvulopatías"]}];
+const SOURCES = [["PNUME – Petitorio Nacional Único de Medicamentos Esenciales, RM N° 633-2023/MINSA (DIGEMID)", "https://www.digemid.minsa.gob.pe/Archivos/Normatividad/2023/RM_633-2023-MINSA.pdf"], ["IETSI-EsSalud – GPC N° 51: Infarto agudo de miocardio con elevación persistente del ST (2022)", "https://ietsi.essalud.gob.pe/wp-content/uploads/2022/05/GPC-IAM_Version-Corta.pdf"], ["IETSI-EsSalud – GPC N° 61: Fibrilación auricular, actualización 2023", "https://ietsi.essalud.gob.pe/wp-content/uploads/2023/11/GPC-FA_Version-corta_Pag-web.pdf"], ["IETSI-EsSalud – GPC N° 67: Insuficiencia cardiaca crónica, actualización 2024", "https://ietsi.essalud.gob.pe/wp-content/uploads/2024/12/GPC-ICC-2024-Version-Corta.pdf"], ["IETSI-EsSalud – GPC N° 70: Síndrome coronario crónico, actualización 2024 (V.02, 2025)", "https://ietsi.essalud.gob.pe/wp-content/uploads/2024/12/GPC-SCC-Version-corta-2024.pdf"], ["OMS – Prevención y diagnóstico de la fiebre reumática y la cardiopatía reumática (2024)", "https://www.who.int/publications/i/item/9789240100077"], ["IETSI-EsSalud – Listado oficial de guías de práctica clínica", "https://ietsi.essalud.gob.pe/gpc-guias-de-practica-clinica/"]];
+
+
+const STORAGE_KEY = "vademecumCardio15_v1";
+
+const FIELDS = [
+  { k: "comercial",    t: "Nombre comercial",        icon: "🏷️" },
+  { k: "presentacion", t: "Presentación",            icon: "📦" },
+  { k: "clase",        t: "Clase terapéutica",       icon: "🧪" },
+  { k: "dosis",        t: "Dosis",                   icon: "⚖️" },
+  { k: "mecanismo",    t: "Mecanismo de acción",     icon: "⚙️", wide: true },
+  { k: "indicado",     t: "Indicado",                icon: "🎯" },
+  { k: "vias",         t: "Vías de administración",  icon: "💉" },
+  { k: "adversos",     t: "Efectos adversos",        icon: "⚠️", cls: "alert" },
+  { k: "contra",       t: "Contraindicaciones",      icon: "⛔", cls: "alert" },
+  { k: "cuidados",     t: "Cuidados de enfermería",  icon: "🩺", cls: "care", wide: true },
+  { k: "fuente",       t: "Fuente normativa (DIGEMID · MINSA · EsSalud)", icon: "📚", cls: "source", wide: true }
+];
+
+const CATS = ["Cardiopatía isquémica", "Infarto de miocardio", "Insuficiencia cardiaca", "Miocardiopatías", "Arritmias", "Valvulopatías"];
+const SHORT = { "Cardiopatía isquémica": "C. isquémica", "Infarto de miocardio": "IAM", "Insuficiencia cardiaca": "ICC",
+                "Miocardiopatías": "Miocardiopatías", "Arritmias": "Arritmias", "Valvulopatías": "Valvulopatías" };
+
+// ---------------- estado ----------------
+const state = {
+  screen: "map",
+  index: 0,
+  mode: "resumen",
+  query: "",
+  cat: "Todas",
+  done: {},
+  tts: false,
+  fontStep: 0,
+  review: { order: [], pos: 0, shown: false }
+};
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    if (saved && typeof saved === "object") {
+      state.done = saved.done || {};
+      state.fontStep = saved.fontStep || 0;
+    }
+  } catch (e) { /* sin almacenamiento: la guía funciona igual */ }
+}
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ done: state.done, fontStep: state.fontStep }));
+  } catch (e) { /* silencioso */ }
+}
+
+// ---------------- utilidades ----------------
+const $ = id => document.getElementById(id);
+const shell = $("shell");
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function norm(s) {
+  return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+function highlight(text) {
+  const safe = esc(text);
+  const q = state.query.trim();
+  if (q.length < 2) return safe;
+  const nSafe = norm(safe), nQ = norm(q);
+  let out = "", i = 0;
+  while (true) {
+    const at = nSafe.indexOf(nQ, i);
+    if (at === -1) { out += safe.slice(i); break; }
+    out += safe.slice(i, at) + "<mark>" + safe.slice(at, at + q.length) + "</mark>";
+    i = at + q.length;
+  }
+  return out;
+}
+function toast(msg) {
+  const root = $("toastRoot");
+  root.innerHTML = '<div class="toast">' + esc(msg) + "</div>";
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { root.innerHTML = ""; }, 2600);
+}
+function doneCount() { return MEDS.filter(m => state.done[m.id]).length; }
+
+function refreshHud() {
+  const n = doneCount(), pct = Math.round((n / MEDS.length) * 100);
+  $("progressFill").style.width = pct + "%";
+  $("progressPercent").textContent = pct + "%";
+  $("doneStat").textContent = n + "/" + MEDS.length;
+}
+
+// ---------------- filtro ----------------
+function haystack(m) {
+  let s = m.dci + " " + m.sub + " " + m.cats.join(" ") + " " + m.corto;
+  FIELDS.forEach(f => { s += " " + m.d[f.k].join(" ") + " " + m.r[f.k].join(" "); });
+  return norm(s);
+}
+MEDS.forEach(m => { m._hay = haystack(m); });
+
+function filtered() {
+  const q = norm(state.query.trim());
+  return MEDS.filter(m => {
+    if (state.cat !== "Todas" && m.cats.indexOf(state.cat) === -1) return false;
+    if (q.length && m._hay.indexOf(q) === -1) return false;
+    return true;
+  });
+}
+
+// ---------------- pantalla: mapa ----------------
+function renderMap() {
+  const list = filtered();
+  const chips = ['<button class="chip" data-cat="Todas" aria-pressed="' + (state.cat === "Todas") + '">Todas · ' + MEDS.length + "</button>"]
+    .concat(CATS.map(c => {
+      const n = MEDS.filter(m => m.cats.indexOf(c) !== -1).length;
+      return '<button class="chip" data-cat="' + esc(c) + '" aria-pressed="' + (state.cat === c) + '">' + esc(c) + " · " + n + "</button>";
+    })).join("");
+
+  const cards = list.length ? list.map(m => {
+    const done = !!state.done[m.id];
+    return '<button class="med-card' + (done ? " done" : "") + '" data-id="' + esc(m.id) + '" style="--accent:' + m.color + '">' +
+      '<div class="med-top"><span class="med-icon">' + m.icon + '</span><span class="med-code">N° ' + m.n + "</span></div>" +
+      "<h3>" + highlight(m.dci) + "</h3>" +
+      "<p>" + highlight(m.corto) + "</p>" +
+      '<div class="med-status"><span class="cat-tags">' + m.cats.map(c => '<span class="med-tag">' + esc(SHORT[c]) + "</span>").join("") + "</span>" +
+      '<span class="med-check">' + (done ? "✅ Estudiado" : "Ver ficha →") + "</span></div></button>";
+  }).join("") : '<div class="empty">No hay medicamentos que coincidan con la búsqueda. Prueba con otro término, por ejemplo «INR», «hipokalemia», «angina» o «stent».</div>';
+
+  shell.innerHTML =
+    '<section class="screen">' +
+    '<div class="map-head"><div><h2>Listado de medicamentos</h2>' +
+    "<p>" + MEDS.length + " fármacos para seis patologías cardiovasculares. Un mismo fármaco puede servir en varias: filtra por patología o abre la matriz para ver dónde se indica cada uno. Toca una tarjeta para abrir la ficha completa.</p></div>" +
+    '<span class="access-chip">' + doneCount() + " de " + MEDS.length + " estudiados</span></div>" +
+    '<div class="toolbar"><div class="search-wrap"><span class="search-icon">🔍</span>' +
+    '<input class="search" id="searchInput" type="search" placeholder="Buscar por fármaco, patología, marca, efecto adverso o cuidado…" value="' + esc(state.query) + '"></div>' +
+    '<button class="secondary" id="reviewJump">🃏 Modo repaso</button></div>' +
+    '<div class="chips">' + chips + "</div>" + matrixBlock() +
+    (list.length ? '<div class="med-map">' + cards + "</div>" : cards) +
+    sourcesBlock() +
+    "</section>";
+
+  const input = $("searchInput");
+  input.addEventListener("input", e => {
+    state.query = e.target.value;
+    const pos = e.target.selectionStart;
+    renderMap();
+    const again = $("searchInput");
+    again.focus();
+    try { again.setSelectionRange(pos, pos); } catch (err) {}
+  });
+  shell.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
+    state.cat = b.dataset.cat; renderMap();
+  }));
+  shell.querySelectorAll(".med-card").forEach(b => b.addEventListener("click", () => {
+    const i = MEDS.findIndex(m => m.id === b.dataset.id);
+    openDetail(i);
+  }));
+  shell.querySelectorAll(".mx-open").forEach(b => b.addEventListener("click", () => {
+    openDetail(MEDS.findIndex(m => m.id === b.dataset.id));
+  }));
+  const mx = shell.querySelector(".matrix-box");
+  if (mx) mx.addEventListener("toggle", () => { state.matrixOpen = mx.open; });
+  $("reviewJump").addEventListener("click", startReview);
+}
+
+function matrixTable(interactive) {
+  const head = "<tr><th>Fármaco</th>" + CATS.map(c => "<th>" + esc(SHORT[c]) + "</th>").join("") + "</tr>";
+  const rows = MEDS.map(m => "<tr><td>" + (interactive
+      ? '<button class="mx-open" data-id="' + esc(m.id) + '">' + m.icon + " " + esc(m.dci) + "</button>"
+      : m.n + ". " + esc(m.dci)) + "</td>" +
+    CATS.map(c => m.cats.indexOf(c) !== -1 ? '<td class="on">●</td>' : '<td class="off">·</td>').join("") + "</tr>").join("");
+  return '<table class="matrix"><thead>' + head + "</thead><tbody>" + rows + "</tbody></table>";
+}
+function matrixBlock() {
+  return '<details class="sources-box matrix-box"' + (state.matrixOpen ? " open" : "") + '><summary>🧭 Matriz fármaco-patología</summary>' +
+    '<div class="matrix-wrap">' + matrixTable(true) + "</div>" +
+    '<p class="sources-note">C. isquémica: cardiopatía isquémica · IAM: infarto agudo de miocardio · ICC: insuficiencia cardiaca congestiva. Toca un fármaco para abrir su ficha.</p></details>';
+}
+function printMatrix() {
+  return '<section class="print-med"><h2>Matriz fármaco-patología</h2>' + matrixTable(false) +
+    '<p class="psub">C. isquémica: cardiopatía isquémica · IAM: infarto agudo de miocardio · ICC: insuficiencia cardiaca congestiva</p></section>';
+}
+function sourcesBlock() {
+  return '<details class="sources-box"><summary>📚 Fuentes oficiales consultadas (DIGEMID · MINSA · EsSalud)</summary><ol>' +
+    SOURCES.map(s => '<li><a href="' + esc(s[1]) + '" target="_blank" rel="noopener">' + esc(s[0]) + '</a></li>').join("") +
+    '</ol><p class="sources-note">Los enlaces requieren internet; la guía funciona sin conexión. El PNUME vigente es el de la RM N° 633-2023/MINSA, ampliado en 2025 con listas complementarias. Para estas patologías no se identificó una NTS del MINSA: rigen las guías del IETSI-EsSalud, y en la profilaxis de la fiebre reumática se indica la guía OMS 2024.</p></details>';
+}
+
+// ---------------- pantalla: detalle ----------------
+function fieldBlock(m, f) {
+  const items = (state.mode === "resumen" ? m.r : m.d)[f.k];
+  return '<article class="field ' + (f.cls || "") + (f.wide && state.mode === "detalle" ? " wide" : "") + '">' +
+    '<h3 class="field-title"><b>' + f.icon + "</b>" + esc(f.t) + "</h3><ul>" +
+    items.map(t => "<li>" + highlight(t) + "</li>").join("") + "</ul></article>";
+}
+
+function openDetail(i) {
+  state.index = ((i % MEDS.length) + MEDS.length) % MEDS.length;
+  state.screen = "detail";
+  renderDetail();
+  shell.focus();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderDetail() {
+  const m = MEDS[state.index];
+  const done = !!state.done[m.id];
+  shell.innerHTML =
+    '<section class="screen" style="--accent:' + m.color + '">' +
+    '<div class="detail-head"><div>' +
+    '<p class="kicker">' + m.icon + " Ficha N° " + m.n + " · " + esc(m.cats.join(" · ")) + "</p>" +
+    "<h2>" + esc(m.dci) + "</h2>" +
+    '<p class="detail-sub">' + esc(m.sub) + "</p></div>" +
+    '<div class="detail-tools">' +
+    '<div class="mode-switch"><button data-mode="resumen" aria-pressed="' + (state.mode === "resumen") + '">Resumen</button>' +
+    '<button data-mode="detalle" aria-pressed="' + (state.mode === "detalle") + '">Detalle</button></div>' +
+    '<button class="ghost" id="speakBtn">🔊 Escuchar</button>' +
+    '<button class="ghost" id="doneBtn">' + (done ? "✅ Estudiado" : "◻️ Marcar estudiado") + "</button>" +
+    "</div></div>" +
+    '<div class="field-grid">' + FIELDS.map(f => fieldBlock(m, f)).join("") + "</div>" +
+    '<div class="detail-nav">' +
+    '<button class="secondary" id="prevBtn">← ' + esc(MEDS[(state.index + MEDS.length - 1) % MEDS.length].dci) + "</button>" +
+    '<button class="ghost" id="backBtn">Volver al listado</button>' +
+    '<button class="secondary" id="nextBtn">' + esc(MEDS[(state.index + 1) % MEDS.length].dci) + " →</button>" +
+    "</div></section>";
+
+  shell.querySelectorAll(".mode-switch button").forEach(b => b.addEventListener("click", () => {
+    state.mode = b.dataset.mode; renderDetail();
+  }));
+  $("prevBtn").addEventListener("click", () => openDetail(state.index - 1));
+  $("nextBtn").addEventListener("click", () => openDetail(state.index + 1));
+  $("backBtn").addEventListener("click", goMap);
+  $("doneBtn").addEventListener("click", () => {
+    if (state.done[m.id]) { delete state.done[m.id]; toast("Quitado de estudiados: " + m.dci); }
+    else { state.done[m.id] = Date.now(); toast("¡Listo! " + m.dci + " marcado como estudiado."); }
+    save(); refreshHud(); renderDetail();
+  });
+  $("speakBtn").addEventListener("click", () => speakMed(m));
+  if (state.tts) speakMed(m);
+}
+
+// ---------------- pantalla: repaso ----------------
+function startReview() {
+  const pool = [];
+  MEDS.forEach(m => FIELDS.forEach(f => { if (f.k !== "fuente") pool.push({ id: m.id, k: f.k }); }));
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+  }
+  state.review = { order: pool, pos: 0, shown: false };
+  state.screen = "review";
+  renderReview();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderReview() {
+  const r = state.review;
+  const card = r.order[r.pos];
+  const m = MEDS.find(x => x.id === card.id);
+  const f = FIELDS.find(x => x.k === card.k);
+  const items = m.r[f.k];
+
+  shell.innerHTML =
+    '<section class="screen">' +
+    '<div class="map-head"><div><h2>Modo repaso</h2>' +
+    "<p>Lee el fármaco y el punto solicitado, responde mentalmente y recién entonces revela la respuesta.</p></div>" +
+    '<span class="access-chip">Tarjeta ' + (r.pos + 1) + " de " + r.order.length + "</span></div>" +
+    '<div class="flash-wrap"><div class="flash" style="--accent:' + m.color + '">' +
+    '<p class="flash-kicker">' + m.icon + " " + esc(m.cats.join(" · ")) + "</p>" +
+    "<h3>" + esc(m.dci) + "</h3>" +
+    '<p class="flash-q">' + f.icon + " " + esc(f.t) + "</p>" +
+    '<div class="flash-body">' +
+    (r.shown
+      ? "<ul>" + items.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>"
+      : '<div class="flash-hidden">Piensa tu respuesta.<br>Cuando la tengas, pulsa «Revelar».</div>') +
+    "</div>" +
+    '<div class="flash-actions">' +
+    '<button class="ghost" id="rvExit">Salir del repaso</button>' +
+    (r.shown
+      ? '<button class="ghost" id="rvOpen">Ver ficha completa</button><button class="primary" id="rvNext">Siguiente tarjeta →</button>'
+      : '<button class="primary" id="rvShow">Revelar respuesta</button>') +
+    "</div></div></div></section>";
+
+  $("rvExit").addEventListener("click", goMap);
+  if (r.shown) {
+    $("rvNext").addEventListener("click", () => {
+      r.pos = (r.pos + 1) % r.order.length; r.shown = false; renderReview();
+    });
+    $("rvOpen").addEventListener("click", () => openDetail(MEDS.findIndex(x => x.id === m.id)));
+  } else {
+    $("rvShow").addEventListener("click", () => { r.shown = true; renderReview(); if (state.tts) speak(m.dci + ". " + f.t + ". " + items.join(". ")); });
+  }
+}
+
+// ---------------- lectura en voz alta ----------------
+function speak(text) {
+  if (!("speechSynthesis" in window)) { toast("Este navegador no permite la lectura en voz alta."); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "es-PE"; u.rate = .98; u.pitch = 1;
+  const v = window.speechSynthesis.getVoices().find(x => /es(-|_)(PE|MX|US|ES|AR|CO)/i.test(x.lang)) ||
+            window.speechSynthesis.getVoices().find(x => /^es/i.test(x.lang));
+  if (v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+function speakMed(m) {
+  const src = state.mode === "resumen" ? m.r : m.d;
+  let txt = m.dci + ". " + m.sub + ". ";
+  FIELDS.forEach(f => { txt += f.t + ". " + src[f.k].join(". ") + ". "; });
+  speak(txt);
+}
+
+// ---------------- bitácora ----------------
+function openLog() {
+  const hechos = MEDS.filter(m => state.done[m.id]);
+  const pend = MEDS.filter(m => !state.done[m.id]);
+  const html =
+    '<div class="modal-backdrop" id="backdrop"><div class="modal" role="dialog" aria-modal="true" aria-label="Bitácora de estudio">' +
+    '<div class="modal-top"><h3>📘 Bitácora de estudio</h3><button class="modal-close" id="closeModal">✕</button></div>' +
+    '<div class="log-grid">' +
+    '<div class="log-stat"><strong>' + hechos.length + "</strong>Estudiados</div>" +
+    '<div class="log-stat"><strong>' + pend.length + "</strong>Pendientes</div>" +
+    '<div class="log-stat"><strong>' + Math.round((hechos.length / MEDS.length) * 100) + "%</strong>Avance</div>" +
+    "</div>" +
+    "<p><b>Pendientes por revisar</b></p><div class=\"log-list\">" +
+    (pend.length ? pend.map(m => '<div class="log-row"><span>' + m.icon + " " + esc(m.dci) + "</span><span>" + esc(m.cat) + "</span></div>").join("")
+                 : '<div class="log-row"><span>Revisaste los ' + MEDS.length + ' medicamentos. 👏</span></div>') +
+    "</div>" +
+    '<div class="flash-actions"><button class="ghost" id="resetLog">Reiniciar progreso</button>' +
+    '<button class="primary" id="printFromLog">🖨️ Guardar guía en PDF</button></div>' +
+    "</div></div>";
+  $("modalRoot").innerHTML = html;
+  $("closeModal").addEventListener("click", closeModal);
+  $("backdrop").addEventListener("click", e => { if (e.target.id === "backdrop") closeModal(); });
+  $("resetLog").addEventListener("click", () => {
+    state.done = {}; save(); refreshHud(); closeModal(); render();
+    toast("Progreso reiniciado.");
+  });
+  $("printFromLog").addEventListener("click", () => { closeModal(); doPrint(); });
+}
+function closeModal() { $("modalRoot").innerHTML = ""; }
+
+// ---------------- impresión ----------------
+function buildPrint() {
+  const cover =
+    '<div class="print-cover"><h1>Vademécum Cardio</h1>' +
+    "<p>Fichas farmacológicas de enfermería · Sistema cardiovascular · Perú</p>" +
+    "<p>Cardiopatía isquémica · Infarto de miocardio · Insuficiencia cardiaca congestiva · Miocardiopatías · Arritmias · Valvulopatías</p>" +
+    "<p>Nombre comercial · Presentación · Clase terapéutica · Dosis · Mecanismo de acción<br>" +
+    "Indicado · Vías de administración · Efectos adversos · Contraindicaciones · Cuidados de enfermería</p>" +
+    "<p>Fuentes: GPC IETSI-EsSalud N° 51, 61, 67 y 70 · PNUME DIGEMID-MINSA (RM N° 633-2023/MINSA)</p></div>" + printMatrix() + '<section class="print-med"><h2>Fuentes oficiales</h2><ol>' + SOURCES.map(s => "<li>" + esc(s[0]) + " — " + esc(s[1]) + "</li>").join("") + "</ol></section>";
+  const body = MEDS.map(m =>
+    '<section class="print-med"><h2>' + m.n + ". " + esc(m.dci) + "</h2>" + '<p class="psub">' + esc(m.cats.join(" · ")) + '</p>' +
+    '<p class="psub">' + esc(m.sub) + "</p>" +
+    FIELDS.map(f =>
+      '<div class="print-field"><h4>' + esc(f.t) + "</h4><ul>" +
+      m.d[f.k].map(t => "<li>" + esc(t) + "</li>").join("") + "</ul></div>").join("") +
+    "</section>").join("");
+  $("printRoot").innerHTML = cover + body;
+}
+function doPrint() { buildPrint(); setTimeout(() => window.print(), 60); }
+
+// ---------------- navegación ----------------
+function goMap() { state.screen = "map"; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+function render() {
+  if (state.screen === "map") renderMap();
+  else if (state.screen === "detail") renderDetail();
+  else renderReview();
+  refreshHud();
+}
+function enterApp(screen) {
+  $("startScreen").classList.add("hidden");
+  $("hud").classList.remove("hidden");
+  shell.classList.remove("hidden");
+  state.screen = screen || "map";
+  if (state.screen === "review") startReview(); else render();
+}
+
+// ---------------- arranque ----------------
+load();
+applyFont();
+refreshHud();
+
+$("openButton").addEventListener("click", () => enterApp("map"));
+$("reviewStartButton").addEventListener("click", () => enterApp("review"));
+$("mapButton").addEventListener("click", goMap);
+$("reviewButton").addEventListener("click", startReview);
+$("logButton").addEventListener("click", openLog);
+$("printButton").addEventListener("click", doPrint);
+$("ttsButton").addEventListener("click", () => {
+  state.tts = !state.tts;
+  $("ttsButton").setAttribute("aria-pressed", String(state.tts));
+  if (!state.tts && "speechSynthesis" in window) window.speechSynthesis.cancel();
+  toast(state.tts ? "Lectura automática activada." : "Lectura automática desactivada.");
+});
+$("fontButton").addEventListener("click", () => {
+  state.fontStep = (state.fontStep + 1) % 3;
+  applyFont(); save();
+  toast("Tamaño de letra: " + ["normal", "grande", "muy grande"][state.fontStep] + ".");
+});
+function applyFont() {
+  document.documentElement.style.setProperty("--font-scale", [1, 1.12, 1.26][state.fontStep]);
+}
+$("fullscreenButton").addEventListener("click", () => {
+  if (!document.fullscreenElement) { (document.documentElement.requestFullscreen || function () {}).call(document.documentElement); }
+  else if (document.exitFullscreen) document.exitFullscreen();
+});
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  if ($("modalRoot").innerHTML && e.key === "Escape") { closeModal(); return; }
+  if (state.screen === "detail") {
+    if (e.key === "ArrowRight") openDetail(state.index + 1);
+    if (e.key === "ArrowLeft") openDetail(state.index - 1);
+    if (e.key === "Escape") goMap();
+  }
+  if (state.screen === "review" && e.key === " ") {
+    e.preventDefault();
+    if (state.review.shown) { state.review.pos = (state.review.pos + 1) % state.review.order.length; state.review.shown = false; }
+    else state.review.shown = true;
+    renderReview();
+  }
+});
+window.addEventListener("beforeprint", buildPrint);
+if ("speechSynthesis" in window) window.speechSynthesis.getVoices();
+})();
+
+</script>
+</body>
+</html>
